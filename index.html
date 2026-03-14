@@ -1,0 +1,434 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Robert Marston | Career Portfolio</title>
+    <meta
+      name="description"
+      content="Robert Marston's personal career website showcasing leadership experience, key achievements, and featured work."
+    />
+    <style>
+      :root {
+        --bg: #0b1020;
+        --surface: #141b33;
+        --surface-alt: #1b2442;
+        --text: #e9eeff;
+        --muted: #b4c0e6;
+        --brand: #74b3ff;
+        --accent: #8bffc9;
+        --border: #2a355e;
+        --shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        font-family:
+          Inter,
+          system-ui,
+          -apple-system,
+          Segoe UI,
+          Roboto,
+          Arial,
+          sans-serif;
+        color: var(--text);
+        background: linear-gradient(
+          180deg,
+          #0b1020 0%,
+          #0a1530 45%,
+          #0d1b38 100%
+        );
+      }
+
+      a {
+        color: inherit;
+      }
+
+      .container {
+        width: min(1100px, 92vw);
+        margin: 0 auto;
+      }
+
+      .nav {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        backdrop-filter: blur(10px);
+        background: rgba(11, 16, 32, 0.75);
+        border-bottom: 1px solid var(--border);
+      }
+
+      .nav-inner {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.85rem 0;
+      }
+
+      .brand {
+        font-weight: 800;
+        letter-spacing: 0.04em;
+      }
+
+      .links {
+        display: flex;
+        gap: 1rem;
+        color: var(--muted);
+        font-size: 0.95rem;
+      }
+
+      .hero {
+        padding: 5rem 0 3rem;
+        display: grid;
+        gap: 2rem;
+        grid-template-columns: 1.2fr 0.8fr;
+        align-items: center;
+      }
+
+      .eyebrow {
+        display: inline-block;
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 0.14em;
+        color: var(--accent);
+        margin-bottom: 1rem;
+      }
+
+      h1 {
+        font-size: clamp(2rem, 4vw, 3.6rem);
+        margin: 0;
+        line-height: 1.15;
+      }
+
+      .lead {
+        color: var(--muted);
+        font-size: 1.1rem;
+        line-height: 1.7;
+        margin: 1rem 0 2rem;
+        max-width: 60ch;
+      }
+
+      .cta-row {
+        display: flex;
+        gap: 0.8rem;
+        flex-wrap: wrap;
+      }
+
+      .btn {
+        border: 1px solid var(--border);
+        border-radius: 999px;
+        padding: 0.7rem 1.2rem;
+        text-decoration: none;
+        font-weight: 700;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .btn.primary {
+        background: linear-gradient(135deg, var(--brand), #98c4ff);
+        color: #06122d;
+        border: none;
+      }
+
+      .card {
+        background: linear-gradient(180deg, var(--surface), var(--surface-alt));
+        border: 1px solid var(--border);
+        border-radius: 18px;
+        box-shadow: var(--shadow);
+      }
+
+      .hero-card {
+        padding: 1.4rem;
+      }
+
+      .hero-card h2 {
+        margin-top: 0;
+        font-size: 1.1rem;
+      }
+
+      .stat {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 0.8rem;
+        align-items: center;
+        margin-top: 1rem;
+        padding-top: 1rem;
+        border-top: 1px dashed var(--border);
+      }
+
+      .stat strong {
+        font-size: 1.4rem;
+        color: var(--accent);
+      }
+
+      section {
+        padding: 2rem 0;
+      }
+
+      h3 {
+        margin: 0 0 0.9rem;
+        font-size: 1.5rem;
+      }
+
+      .grid {
+        display: grid;
+        gap: 1rem;
+      }
+
+      .grid.two {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .timeline-item,
+      .project,
+      .quote {
+        padding: 1.1rem;
+      }
+
+      .timeline-item p,
+      .project p,
+      .quote p {
+        color: var(--muted);
+        line-height: 1.6;
+      }
+
+      .meta {
+        color: var(--accent);
+        font-weight: 600;
+        margin-bottom: 0.4rem;
+        font-size: 0.92rem;
+      }
+
+      .skills {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.6rem;
+        margin-top: 0.8rem;
+      }
+
+      .tag {
+        border: 1px solid var(--border);
+        border-radius: 999px;
+        padding: 0.35rem 0.8rem;
+        color: #d4e2ff;
+        font-size: 0.86rem;
+        background: #111934;
+      }
+
+      .contact {
+        text-align: center;
+        padding-bottom: 4rem;
+      }
+
+      footer {
+        border-top: 1px solid var(--border);
+        color: var(--muted);
+        text-align: center;
+        padding: 1rem;
+        font-size: 0.9rem;
+      }
+
+      @media (max-width: 900px) {
+        .hero,
+        .grid.two {
+          grid-template-columns: 1fr;
+        }
+
+        .links {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="nav">
+      <div class="container nav-inner">
+        <div class="brand">ROBERT MARSTON</div>
+        <nav class="links" aria-label="Primary navigation">
+          <a href="#about">About</a>
+          <a href="#experience">Experience</a>
+          <a href="#projects">Projects</a>
+          <a href="#contact">Contact</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container">
+      <section class="hero" id="about">
+        <div>
+          <span class="eyebrow">Personal Career Site</span>
+          <h1>
+            Building teams, products, and momentum with measurable outcomes.
+          </h1>
+          <p class="lead">
+            I’m Robert Marston, a strategy and operations leader focused on
+            turning complex initiatives into practical, scalable results. This
+            site highlights my professional journey, core strengths, and
+            selected achievements.
+          </p>
+          <div class="cta-row">
+            <a class="btn primary" href="#contact">Let’s Connect</a>
+            <a class="btn" href="#projects">View Featured Work</a>
+          </div>
+        </div>
+
+        <aside class="card hero-card" aria-label="Quick profile stats">
+          <h2>Career Snapshot</h2>
+          <div class="stat">
+            <strong>12+</strong>
+            <span
+              >Years leading cross-functional teams across product, operations,
+              and growth.</span
+            >
+          </div>
+          <div class="stat">
+            <strong>40%</strong>
+            <span
+              >Average efficiency gains delivered through process redesign
+              programs.</span
+            >
+          </div>
+          <div class="stat">
+            <strong>$18M</strong>
+            <span
+              >Portfolio value influenced through strategic execution and market
+              expansion.</span
+            >
+          </div>
+        </aside>
+      </section>
+
+      <section id="experience">
+        <h3>Professional Experience</h3>
+        <div class="grid two">
+          <article class="card timeline-item">
+            <div class="meta">
+              2020–Present · Director of Strategy, Northbridge Ventures
+            </div>
+            <p>
+              Led enterprise transformation initiatives, created KPI-led
+              planning systems, and built operating rhythms that improved
+              delivery predictability and executive visibility.
+            </p>
+          </article>
+
+          <article class="card timeline-item">
+            <div class="meta">
+              2016–2020 · Senior Program Manager, Elevate Dynamics
+            </div>
+            <p>
+              Managed multi-region product rollouts, improved stakeholder
+              alignment, and reduced launch friction through standardized
+              operating playbooks.
+            </p>
+          </article>
+
+          <article class="card timeline-item">
+            <div class="meta">2012–2016 · Business Analyst, Arcline Group</div>
+            <p>
+              Delivered performance analysis and market research that informed
+              investment decisions, pricing strategy, and customer growth plans.
+            </p>
+          </article>
+
+          <article class="card timeline-item">
+            <div class="meta">Education · MBA, Business Strategy</div>
+            <p>
+              Specialized in strategic leadership, data-driven decision making,
+              and innovation management.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section id="projects">
+        <h3>Featured Projects</h3>
+        <div class="grid two">
+          <article class="card project">
+            <div class="meta">Operational Excellence Program</div>
+            <p>
+              Designed and implemented a process optimization framework that
+              reduced cycle times by 32% and improved service quality metrics
+              across three business units.
+            </p>
+          </article>
+
+          <article class="card project">
+            <div class="meta">Go-To-Market Acceleration</div>
+            <p>
+              Directed cross-functional launch planning for a new B2B offering,
+              achieving first-quarter revenue targets 20% ahead of forecast.
+            </p>
+          </article>
+        </div>
+
+        <div class="skills" aria-label="Core skills">
+          <span class="tag">Strategic Planning</span>
+          <span class="tag">Program Leadership</span>
+          <span class="tag">Operations Optimization</span>
+          <span class="tag">Stakeholder Management</span>
+          <span class="tag">Team Development</span>
+          <span class="tag">Data-Driven Decision Making</span>
+        </div>
+      </section>
+
+      <section>
+        <h3>Testimonials</h3>
+        <div class="grid two">
+          <blockquote class="card quote">
+            <p>
+              “Robert is the rare leader who combines strategic depth with
+              practical execution. He creates clarity where others see
+              complexity.”
+            </p>
+            <cite>— Former VP, Product & Operations</cite>
+          </blockquote>
+
+          <blockquote class="card quote">
+            <p>
+              “His ability to align teams and drive measurable outcomes was
+              instrumental to our regional expansion.”
+            </p>
+            <cite>— COO, Enterprise Services Firm</cite>
+          </blockquote>
+        </div>
+      </section>
+
+      <section class="contact" id="contact">
+        <h3>Let’s Work Together</h3>
+        <p class="lead" style="margin-inline: auto">
+          I’m open to senior leadership, consulting, and advisory opportunities
+          where strategic direction and execution excellence are key.
+        </p>
+        <div class="cta-row" style="justify-content: center">
+          <a class="btn primary" href="mailto:robert.marston@example.com"
+            >robert.marston@example.com</a
+          >
+          <a
+            class="btn"
+            href="https://www.linkedin.com"
+            target="_blank"
+            rel="noreferrer noopener"
+            >LinkedIn Profile</a
+          >
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      © <span id="year"></span> Robert Marston. All rights reserved.
+    </footer>
+
+    <script>
+      document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+    <!-- Core theme JS-->
+    <script src="dist/js/scripts.js"></script>
+  </body>
+</html>
