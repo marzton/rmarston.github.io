@@ -12,24 +12,31 @@ const destPath = upath.resolve(upath.dirname(__filename), '../dist/css/styles.cs
 
 module.exports = function renderSCSS() {
     
-    const results = sass.renderSync({
+    sass.render({
         data: entryPoint,
         includePaths: [
             upath.resolve(upath.dirname(__filename), '../node_modules')
         ],
-      });
+    }, (err, results) => {
+        if (err) {
+            console.error(err);
+            return;
+        }
 
-    const destPathDirname = upath.dirname(destPath);
-    if (!sh.test('-e', destPathDirname)) {
-        sh.mkdir('-p', destPathDirname);
-    }
+        const destPathDirname = upath.dirname(destPath);
+        if (!sh.test('-e', destPathDirname)) {
+            sh.mkdir('-p', destPathDirname);
+        }
 
-    postcss([ autoprefixer ]).process(results.css, {from: 'styles.css', to: 'styles.css'}).then(result => {
-        result.warnings().forEach(warn => {
-            console.warn(warn.toString())
-        })
-        fs.writeFileSync(destPath, result.css.toString());
-    })
+        postcss([ autoprefixer ]).process(results.css, {from: 'styles.css', to: 'styles.css'}).then(result => {
+            result.warnings().forEach(warn => {
+                console.warn(warn.toString())
+            })
+            fs.writeFileSync(destPath, result.css.toString());
+        }).catch(err => {
+            console.error(err);
+        });
+    });
 
 };
 
