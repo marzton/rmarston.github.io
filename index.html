@@ -9,6 +9,8 @@
     <meta name="author" content="Rob Marston" />
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href="https://goldshore.ai" />
+    <link rel="icon" type="image/png" href="logo_goldshore.png" />
+    <link rel="apple-touch-icon" href="logo_goldshore.png" />
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
@@ -16,9 +18,14 @@
     <meta property="og:title" content="Rob Marston | GoldShore LLC – AI-Powered Agency" />
     <meta property="og:description" content="Cybersecurity risk control, business systems dev &amp; design. Fintech · Health · Investments · Digital Publishing · Ecommerce. Long Island, NY." />
     <meta property="og:site_name" content="GoldShore LLC" />
+    <meta property="og:image" content="https://goldshore.ai/logo_goldshore.png" />
+    <meta property="og:image:width" content="1024" />
+    <meta property="og:image:height" content="1024" />
+    <meta property="og:image:alt" content="GoldShore LLC logo" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Rob Marston | GoldShore LLC" />
     <meta name="twitter:description" content="AI-powered agency for fintech, health, investments, and digital business. Long Island, NY." />
+    <meta name="twitter:image" content="https://goldshore.ai/logo_goldshore.png" />
 
     <!-- Structured Data -->
     <script type="application/ld+json">
@@ -122,18 +129,16 @@
       .nav-brand {
         display: flex;
         align-items: center;
-        gap: 0.55rem;
+        gap: 0.6rem;
         font-weight: 800;
         font-size: 1.15rem;
         letter-spacing: 0.06em;
       }
-      .nav-brand .gs-icon {
-        width: 30px; height: 30px;
-        background: linear-gradient(135deg, var(--brand), var(--brand-lt));
-        border-radius: 7px;
-        display: grid; place-items: center;
-        font-size: 0.75rem; color: #050c18; font-weight: 900;
+      .nav-brand .gs-logo {
+        width: 36px; height: 36px;
+        object-fit: contain;
         flex-shrink: 0;
+        display: block;
       }
       .nav-brand .gs-name { color: var(--brand-lt); }
       .nav-links {
@@ -636,7 +641,20 @@
         gap: 1.5rem;
         flex-wrap: wrap;
       }
-      .footer-brand { font-weight: 800; font-size: 1rem; letter-spacing: 0.05em; }
+      .footer-brand {
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        font-weight: 800;
+        font-size: 1rem;
+        letter-spacing: 0.05em;
+      }
+      .footer-brand .footer-logo {
+        width: 32px; height: 32px;
+        object-fit: contain;
+        display: block;
+        flex-shrink: 0;
+      }
       .footer-brand span { color: var(--brand-lt); }
       .footer-copy { font-size: 0.82rem; color: var(--muted); margin-top: 0.25rem; }
       .footer-social { display: flex; gap: 0.35rem; }
@@ -707,7 +725,7 @@
     <header class="nav" role="banner">
       <div class="container nav-inner">
         <a href="#hero" class="nav-brand" aria-label="GoldShore LLC home">
-          <div class="gs-icon" aria-hidden="true">GS</div>
+          <img class="gs-logo" src="logo_goldshore.png" alt="GoldShore LLC logo" width="36" height="36" />
           <span class="gs-name">GoldShore</span><span style="color:var(--muted);font-weight:400;font-size:0.85rem;">&nbsp;LLC</span>
         </a>
 
@@ -1158,7 +1176,10 @@
     <footer class="footer" role="contentinfo">
       <div class="container footer-inner">
         <div>
-          <div class="footer-brand"><span>GoldShore</span> LLC &mdash; goldshore.ai</div>
+          <div class="footer-brand">
+            <img class="footer-logo" src="logo_goldshore.png" alt="GoldShore LLC logo" width="32" height="32" />
+            <div><span>GoldShore</span> LLC &mdash; goldshore.ai</div>
+          </div>
           <div class="footer-copy">
             &copy; <span id="footerYear"></span> GoldShore LLC. All rights reserved. &middot; Long Island, NY
           </div>
