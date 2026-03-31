@@ -47,7 +47,7 @@
         "upath": "2.0.1"
     },
     "devDependencies": {
-        "browser-sync": "2.29.1",
+        "browser-sync": "3.0.4",
         "chokidar": "3.5.3",
         "concurrently": "6.3.0",
         "jest": "^27.5.1"
