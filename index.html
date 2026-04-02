@@ -565,7 +565,7 @@
                   <i class="fas fa-layer-group" aria-hidden="true"></i>
                   View Works
                 </a>
-                <a href="GoldShore_2025_PitchDeck_Final.pdf" class="btn btn-outline" target="_blank" rel="noopener">
+                <a href="GoldShore_2025_PitchDeck_Final.pdf" class="btn btn-outline" target="_blank" rel="noopener noreferrer">
                   <i class="fas fa-file-pdf" aria-hidden="true"></i>
                   Pitch Deck
                 </a>
@@ -724,148 +724,290 @@
             </div>
           </div>
 
-          <div class="timeline-wrapper reveal">
-            <div class="timeline-track" id="timelineTrack" role="list" aria-label="Career milestones">
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
 
-              <div class="timeline-item" role="listitem">
-                <div class="tl-dot" aria-hidden="true"></div>
-                <div class="tl-year">2010 &ndash; 2013</div>
-                <div class="tl-card">
-                  <div class="tl-role">Senior CAD Draftsman</div>
-                  <div class="tl-company">Fabco Industries</div>
-                  <div class="tl-desc">Automated CAD workflows cutting design time by 25%. Mentored engineers, reducing error rates by 35%. First deep dive into systems automation and precision engineering.</div>
-                </div>
-              </div>
+    body {
+      background: var(--black);
+      color: var(--text);
+      font-family: var(--ff-mono);
+      font-size: 15px;
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
 
-              <div class="timeline-item" role="listitem">
-                <div class="tl-dot" aria-hidden="true"></div>
-                <div class="tl-year">2013 &ndash; 2016</div>
-                <div class="tl-card">
-                  <div class="tl-role">Front-End &amp; Web Developer</div>
-                  <div class="tl-company">Freelance / Agency Clients</div>
-                  <div class="tl-desc">Transitioned into web development, building brand platforms and small business systems across Long Island. Established a growing roster of 10+ business clients.</div>
-                </div>
-              </div>
+    /* ===== NAV ===== */
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 2rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-id {
+      font-family: var(--ff-head);
+      font-weight: 800;
+      font-size: 0.95rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text);
+    }
+    .nav-id span { color: var(--green); }
+    .nav-ext {
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      text-decoration: none;
+      border: 1px solid var(--border);
+      padding: 0.35rem 0.8rem;
+      transition: color 0.15s, border-color 0.15s;
+    }
+    .nav-ext:hover { color: var(--green); border-color: var(--green); }
 
-              <div class="timeline-item" role="listitem">
-                <div class="tl-dot" aria-hidden="true"></div>
-                <div class="tl-year">2017 &ndash; 2021</div>
-                <div class="tl-card">
-                  <div class="tl-role">IT Specialist &amp; Developer</div>
-                  <div class="tl-company">ICD Publications</div>
-                  <div class="tl-desc">Developed ML models improving data accuracy by 20%. Led cross-functional teams on web tools for B2B publishing workflows across global markets.</div>
-                </div>
-              </div>
+    /* ===== HERO ===== */
+    .hero {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 5rem 2rem 3rem;
+      max-width: 960px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    .hero-eyebrow {
+      font-size: 0.68rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 1.25rem;
+    }
+    h1 {
+      font-family: var(--ff-head);
+      font-size: clamp(2.8rem, 7vw, 5.5rem);
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: -0.025em;
+      line-height: 1.02;
+      margin-bottom: 1.5rem;
+    }
+    .hero-bio {
+      font-size: 0.92rem;
+      color: var(--muted);
+      max-width: 540px;
+      line-height: 1.7;
+      margin-bottom: 2.5rem;
+    }
+    .hero-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+    .hero-link {
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      border: 1px solid var(--border);
+      padding: 0.45rem 1rem;
+      transition: color 0.15s, border-color 0.15s;
+    }
+    .hero-link:hover { color: var(--green); border-color: var(--green); }
+    .hero-link.primary {
+      color: var(--black);
+      background: var(--green);
+      border-color: var(--green);
+      font-weight: 600;
+    }
+    .hero-link.primary:hover { opacity: 0.85; color: var(--black); }
 
-              <div class="timeline-item" role="listitem">
-                <div class="tl-dot" aria-hidden="true"></div>
-                <div class="tl-year">2017 &ndash; 2024</div>
-                <div class="tl-card">
-                  <div class="tl-role">Full-Stack Developer</div>
-                  <div class="tl-company">AXE Creatives</div>
-                  <div class="tl-desc">Led WordPress performance optimization (40% load time reduction). Pre-processed ML training datasets. Delivered campaigns for advertising and media clients.</div>
-                </div>
-              </div>
+    /* ===== RULE ===== */
+    .rule { border: none; border-top: 1px solid var(--border); }
 
-              <div class="timeline-item" role="listitem">
-                <div class="tl-dot" aria-hidden="true"></div>
-                <div class="tl-year">2018</div>
-                <div class="tl-card">
-                  <div class="tl-role">AWS Certified Solutions Architect</div>
-                  <div class="tl-company">Certification &amp; Recognition</div>
-                  <div class="tl-desc">Achieved AWS certification in scalable system design. Nominated by NY Business Leaders for contributions to tech and AI integration (also 2022).</div>
-                </div>
-              </div>
+    /* ===== ARCHIVE GRID ===== */
+    .archive {
+      padding: 4rem 2rem;
+      max-width: 960px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    .archive-label {
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .archive-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+    }
+    .project-card {
+      background: var(--surface);
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      text-decoration: none;
+      color: inherit;
+      transition: background 0.15s;
+      position: relative;
+    }
+    .project-card:hover { background: #161616; }
+    .project-card:hover .card-arrow { color: var(--green); transform: translate(4px, -4px); }
+    .card-num {
+      font-size: 0.62rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--green);
+    }
+    .card-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+    }
+    .card-title {
+      font-family: var(--ff-head);
+      font-size: 1.5rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: -0.01em;
+      line-height: 1.1;
+    }
+    .card-arrow {
+      font-size: 1.1rem;
+      color: var(--muted);
+      transition: color 0.15s, transform 0.2s;
+      flex-shrink: 0;
+      margin-left: 1rem;
+    }
+    .card-tag {
+      display: inline-block;
+      font-size: 0.62rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      padding: 0.2rem 0.55rem;
+      align-self: flex-start;
+    }
+    .card-desc {
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+    .card-status {
+      font-size: 0.62rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-top: auto;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border);
+    }
 
-              <div class="timeline-item" role="listitem">
-                <div class="tl-dot" aria-hidden="true"></div>
-                <div class="tl-year">2020 &ndash; 2023</div>
-                <div class="tl-card">
-                  <div class="tl-role">Agency Growth: 36+ Clients</div>
-                  <div class="tl-company">Cross-Industry Portfolio</div>
-                  <div class="tl-desc">Built over three dozen web apps across publishing, ads, engineering, ecommerce, professional services, and small business brand platforms.</div>
-                </div>
-              </div>
+    /* ===== FOOTER ===== */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 1.75rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+      font-size: 0.68rem;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+    }
+    footer a { color: var(--green); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+    .footer-sig {
+      font-family: var(--ff-head);
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text);
+    }
+  </style>
+</head>
+<body>
 
-              <div class="timeline-item" role="listitem">
-                <div class="tl-dot" aria-hidden="true"></div>
-                <div class="tl-year">2023 &ndash; Present</div>
-                <div class="tl-card">
-                  <div class="tl-role">Founder &amp; Lead Engineer</div>
-                  <div class="tl-company">GoldShore LLC / goldshore.ai</div>
-                  <div class="tl-desc">Launched GoldShore: cybersecurity risk control and AI agency. Built AutoBrief, BasketBrain, and Risk Radar AI for fintech risk recovery &amp; market sentiment.</div>
-                </div>
-              </div>
+  <!-- NAV -->
+  <nav>
+    <span class="nav-id">Rob<span> Marston</span></span>
+    <a class="nav-ext" href="https://goldshore.ai" target="_blank" rel="noopener noreferrer">goldshore.ai ↗</a>
+  </nav>
 
-            </div>
-          </div>
+  <!-- HERO -->
+  <section class="hero">
+    <p class="hero-eyebrow">Long Island, NY · Cybersecurity &amp; AI Systems · Archive</p>
+    <h1>Legacy<br>Project<br>Index</h1>
+    <p class="hero-bio">
+      Finished brand IP and patented concepts by Rob Marston.
+      Active development lives at <a href="https://goldshore.ai" style="color:var(--green);text-decoration:none;" target="_blank" rel="noopener noreferrer">goldshore.ai</a>.
+      This registry is a permanent, high-availability home for legacy work.
+    </p>
+    <div class="hero-links">
+      <a class="hero-link primary" href="https://goldshore.ai" target="_blank" rel="noopener noreferrer">Active Work → goldshore.ai</a>
+      <a class="hero-link" href="https://github.com/marzton" target="_blank" rel="noopener noreferrer">GitHub</a>
+      <a class="hero-link" href="https://www.linkedin.com/in/r-marston" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+    </div>
+  </section>
+
+  <hr class="rule" />
+
+  <!-- ARCHIVE -->
+  <section class="archive">
+    <p class="archive-label">Legacy Archive — 4 Projects</p>
+    <div class="project-grid">
+
+      <a class="project-card" href="./armsway/">
+        <span class="card-num">01</span>
+        <div class="card-header">
+          <h2 class="card-title">Armsway</h2>
+          <span class="card-arrow" aria-hidden="true">↗</span>
         </div>
-      </section>
+        <span class="card-tag">Medical Device · Patent Pending</span>
+        <p class="card-desc">
+          A patented single-use disposable blood pressure cuff sleeve engineered to eliminate cross-contamination in clinical and at-home monitoring environments.
+        </p>
+        <p class="card-status">● Patent Pending (US) · Engineering Schematics</p>
+      </a>
 
-      <hr class="divider" />
-
-      <!-- NOTABLE WORKS -->
-      <section id="works" aria-labelledby="works-heading">
-        <div class="container">
-          <span class="section-label">Notable Works</span>
-          <h2 class="section-title reveal" id="works-heading">Platforms Built to Perform</h2>
-          <p class="section-lead reveal">
-            Selected projects demonstrating cross-industry depth &mdash; from AI-powered fintech tools to publishing infrastructure and ecommerce systems.
-          </p>
-
-          <div class="works-grid reveal">
-            <article class="work-card featured" aria-label="Risk Radar AI flagship project">
-              <div>
-                <div class="work-tag">Flagship &middot; Fintech AI</div>
-                <h3 class="work-name">Risk Radar AI &mdash; Fintech Risk Intelligence Platform</h3>
-                <p class="work-desc">
-                  An AI-powered fintech solution providing real-time market sentiment analysis and digital asset risk recovery. Combines NLP-driven signal processing with portfolio risk scoring to give investors and traders actionable intelligence at the speed of the market. Built for institutional-grade reliability with consumer-facing simplicity.
-                </p>
-                <div style="margin-top:1rem;">
-                  <a href="https://github.com/goldshore" target="_blank" rel="noreferrer noopener" class="btn btn-outline" style="font-size:0.85rem;padding:0.5rem 1.1rem;">
-                    <i class="fab fa-github" aria-hidden="true"></i> View on GitHub
-                  </a>
-                </div>
-              </div>
-              <div class="work-metrics">
-                <div class="metric">
-                  <div class="metric-val">70%</div>
-                  <div class="metric-lbl">Portfolio processing speed increase</div>
-                </div>
-                <div class="metric">
-                  <div class="metric-val">Real-time</div>
-                  <div class="metric-lbl">Market sentiment signals</div>
-                </div>
-                <div class="metric">
-                  <div class="metric-val">AI-native</div>
-                  <div class="metric-lbl">NLP + risk scoring engine</div>
-                </div>
-                <div class="metric">
-                  <div class="metric-val">Fintech</div>
-                  <div class="metric-lbl">Digital asset recovery</div>
-                </div>
-              </div>
-            </article>
-
-            <article class="work-card" aria-label="AutoBrief AI project">
-              <div class="work-tag">AI Automation &middot; GoldShore</div>
-              <h3 class="work-name">AutoBrief &mdash; AI Financial Briefing Engine</h3>
-              <p class="work-desc">Automated financial reporting tool that converts raw market data and portfolio feeds into structured, readable briefings. Powers institutional and retail reporting workflows with 40% productivity gains.</p>
-            </article>
-
-            <article class="work-card" aria-label="36+ client portfolio">
-              <div class="work-tag">Agency Portfolio &middot; 36+ Clients</div>
-              <h3 class="work-name">Cross-Platform Client Portfolio</h3>
-              <p class="work-desc">Over three dozen web applications delivered across publishing, advertising technology, engineering firms, ecommerce, professional services, and small business brand platforms across Long Island and the Northeast.</p>
-            </article>
-
-            <article class="work-card" aria-label="BasketBrain portfolio intelligence">
-              <div class="work-tag">AI &middot; Investments</div>
-              <h3 class="work-name">BasketBrain &mdash; Portfolio Intelligence</h3>
-              <p class="work-desc">AI-driven portfolio analysis and basket-building tool for digital asset investors. Applies machine learning to identify correlations, optimize allocation weights, and surface risk-adjusted opportunities.</p>
-            </article>
-          </div>
+      <a class="project-card" href="./solefoodny/">
+        <span class="card-num">02</span>
+        <div class="card-header">
+          <h2 class="card-title">Sole Food NY</h2>
+          <span class="card-arrow" aria-hidden="true">↗</span>
         </div>
+        <span class="card-tag">Retail Concept · #SFNY</span>
+        <p class="card-desc">
+          Retro-modern curated sneaker boutique concept from Long Island, NY. Limited releases, high-demand drops, and an interactive sold-out product grid.
+        </p>
+        <p class="card-status">● Concept Brand · Mockup Site</p>
+      </a>
+
+      <a class="project-card" href="https://gearswipe.com" target="_blank" rel="noopener noreferrer">
+        <span class="card-num">03</span>
+        <div class="card-header">
+          <h2 class="card-title">GearSwipe</h2>
+          <span class="card-arrow" aria-hidden="true">↗</span>
       </section>
 
       <section class="contact" id="contact">
