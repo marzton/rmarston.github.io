@@ -31,7 +31,7 @@ wrangler deploy
 ## Contact
 
 - Email: [marstonr6@gmail.com](mailto:marstonr6@gmail.com)
-- LinkedIn: [linkedin.com/in/robertmarston](https://www.linkedin.com/in/robertmarston)
+- LinkedIn: [linkedin.com/in/r-marston](https://www.linkedin.com/in/r-marston)
 - GitHub: [github.com/marzton](https://github.com/marzton)
 # 📂 rmarston.github.io
 **Legacy Registry & Patent Archive**
