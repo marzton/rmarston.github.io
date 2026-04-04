@@ -11,6 +11,8 @@ routes = []
 [vars]
 PRIMARY_DOMAIN = "rmarston.com"
 REDIRECT_MODE = "301"
+# BACKEND_UPSTREAM intentionally omitted: this worker only handles
+# canonical redirects and /api/contact email delivery.
 CONTACT_FROM_EMAIL = "contact@goldshore.ai"
 CONTACT_TO_EMAIL = "rob@goldshore.ai"
 
