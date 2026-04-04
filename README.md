@@ -28,6 +28,17 @@ npm install -g wrangler
 wrangler deploy
 ```
 
+## Worker Contact Email Configuration
+
+`worker/index.ts` requires contact email settings to be defined via environment variables. There is no fallback address configured in code. Keep these values aligned in staging and production.
+
+Required variables:
+
+- `CONTACT_FROM_EMAIL`: sender address used by the Worker (for example, `contact@rmarston.com`).
+- `CONTACT_TO_EMAIL`: destination inbox for contact form submissions (for example, `marstonr6@gmail.com`).
+
+When deploying with Wrangler, set these under `[vars]` in `wrangler.toml`, and keep `[[send_email]].destination_address` aligned with `CONTACT_TO_EMAIL`.
+
 ## Contact
 
 - Email: [marstonr6@gmail.com](mailto:marstonr6@gmail.com)

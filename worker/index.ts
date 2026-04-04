@@ -101,12 +101,20 @@ async function handleContactForm(
     );
   }
 
-  const fromAddr = env.CONTACT_FROM_EMAIL ?? "contact@goldshore.ai";
-  const toAddr   = env.CONTACT_TO_EMAIL   ?? "rob@goldshore.ai";
+  const fromAddr = env.CONTACT_FROM_EMAIL?.trim();
+  const toAddr   = env.CONTACT_TO_EMAIL?.trim();
 
-  const emailSubject = `[GoldShore Contact] ${subject} — ${name}`;
+  if (!fromAddr || !toAddr) {
+    console.error("Missing contact email configuration.");
+    return new Response(
+      JSON.stringify({ error: "Contact email is not configured." }),
+      { status: 500, headers: { "Content-Type": "application/json", ...corsHeaders } },
+    );
+  }
+
+  const emailSubject = `[rmarston.com Contact] ${subject} — ${name}`;
   const emailBody = [
-    `New contact form submission from goldshore.ai`,
+    `New contact form submission from rmarston.com`,
     ``,
     `Name:    ${name}`,
     `Email:   ${email}`,
