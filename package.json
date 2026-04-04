@@ -37,7 +37,7 @@
         "autoprefixer": "10.4.14",
         "bootstrap": "5.2.3",
         "postcss": "8.5.8",
-        "prettier": "3.8.1",
+        "prettier": "2.8.x",
         "pug": "3.0.3",
         "sass": "1.60.0",
         "shelljs": "0.10.0",
