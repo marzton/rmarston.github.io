@@ -2,15 +2,14 @@ name = "rmarston-github-io"
 main = "worker/index.ts"
 compatibility_date = "2026-03-22"
 
-# Routes are intentionally empty.
-# rmarston.com is served directly by GitHub Pages via the CNAME file.
-# Redeploy this worker (wrangler deploy) after removing the old route from
-# the Cloudflare dashboard under Workers & Pages > rmarston-github-io > Triggers.
-routes = []
+# Route this worker ONLY for the contact API endpoint.
+# The base site stays on GitHub Pages.
+routes = [
+  { pattern = "rmarston.com/api/*", zone_name = "rmarston.com" },
+  { pattern = "www.rmarston.com/api/*", zone_name = "rmarston.com" }
+]
 
 [vars]
-PRIMARY_DOMAIN = "rmarston.com"
-REDIRECT_MODE = "301"
 CONTACT_FROM_EMAIL = "contact@rmarston.com"
 CONTACT_TO_EMAIL = "marstonr6@gmail.com"
 
