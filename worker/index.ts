@@ -13,6 +13,17 @@ export interface Env {
   CONTACT_FROM_EMAIL?: string;
   CONTACT_TO_EMAIL?: string;
   SEND_EMAIL?: SendEmailBinding;
+  TURNSTILE_SECRET?: string;
+  CONTACT_RATE_LIMIT_KV?: {
+    get(key: string): Promise<string | null>;
+    put(
+      key: string,
+      value: string,
+      options?: {
+        expirationTtl?: number;
+      },
+    ): Promise<void>;
+  };
 }
 
 export function getRedirectStatus(value?: string): 301 | 302 | 307 | 308 {
@@ -60,24 +71,192 @@ async function handleContactForm(
   request: Request,
   env: Env,
 ): Promise<Response> {
-  const corsHeaders = {
-    "Access-Control-Allow-Origin":  "*",
+  const ALLOWED_ORIGIN_SUFFIX = ".rmarston.com";
+  const ALLOWED_ORIGINS = new Set<string>([
+    "https://rmarston.com",
+    "https://www.rmarston.com",
+  ]);
+  const MAX_MESSAGE_LENGTH = 5000;
+  const MAX_NAME_LENGTH = 120;
+  const MAX_COMPANY_LENGTH = 120;
+  const MAX_SUBJECT_LENGTH = 160;
+  const RATE_LIMIT_WINDOW_SECONDS = 60;
+  const RATE_LIMIT_MAX_ATTEMPTS = 8;
+
+  const jsonHeaders = {
+    "Content-Type": "application/json",
+  };
+  const buildCorsHeaders = (origin: string) => ({
+    "Access-Control-Allow-Origin": origin,
     "Access-Control-Allow-Methods": "POST, OPTIONS",
     "Access-Control-Allow-Headers": "Content-Type",
+    "Vary": "Origin",
+  });
+  const jsonResponse = (
+    body: Record<string, unknown>,
+    status: number,
+    origin?: string,
+  ) => {
+    const headers = origin
+      ? { ...jsonHeaders, ...buildCorsHeaders(origin) }
+      : jsonHeaders;
+    return new Response(JSON.stringify(body), { status, headers });
+  };
+  const isAllowedOrigin = (origin: string): boolean => {
+    if (ALLOWED_ORIGINS.has(origin)) {
+      return true;
+    }
+    try {
+      const url = new URL(origin);
+      return (
+        url.protocol === "https:" &&
+        url.hostname.endsWith(ALLOWED_ORIGIN_SUFFIX) &&
+        url.hostname.length > ALLOWED_ORIGIN_SUFFIX.length
+      );
+    } catch {
+      return false;
+    }
+  };
+  const logBlocked = (reason: string, origin: string | null) => {
+    const ip = request.headers.get("CF-Connecting-IP") ?? "unknown";
+    const country = request.headers.get("CF-IPCountry") ?? "unknown";
+    const userAgent = request.headers.get("User-Agent") ?? "unknown";
+    console.warn("contact_blocked", {
+      reason,
+      origin: origin ?? "missing",
+      ip,
+      country,
+      userAgent: userAgent.slice(0, 160),
+    });
+  };
+  const blockedResponse = (
+    code: string,
+    message: string,
+    status: number,
+    origin: string | null,
+  ) => {
+    logBlocked(code, origin);
+    return jsonResponse(
+      {
+        success: false,
+        error: {
+          code,
+          message,
+        },
+      },
+      status,
+      origin && isAllowedOrigin(origin) ? origin : undefined,
+    );
   };
 
+  const origin = request.headers.get("Origin");
+  const likelyBrowserRequest =
+    request.headers.has("Sec-Fetch-Mode") ||
+    request.headers.has("Sec-Fetch-Site");
+
   if (request.method === "OPTIONS") {
-    return new Response(null, { status: 204, headers: corsHeaders });
+    if (!origin || !isAllowedOrigin(origin)) {
+      return blockedResponse(
+        "origin_not_allowed",
+        "Origin is not allowed.",
+        403,
+        origin,
+      );
+    }
+    return new Response(null, { status: 204, headers: buildCorsHeaders(origin) });
+  }
+
+  if (likelyBrowserRequest && (!origin || !isAllowedOrigin(origin))) {
+    return blockedResponse(
+      "invalid_origin",
+      "Missing or invalid Origin header.",
+      403,
+      origin,
+    );
+  }
+
+  if (origin && !isAllowedOrigin(origin)) {
+    return blockedResponse(
+      "origin_not_allowed",
+      "Origin is not allowed.",
+      403,
+      origin,
+    );
+  }
+
+  const ip = request.headers.get("CF-Connecting-IP") ?? "unknown";
+  if (env.CONTACT_RATE_LIMIT_KV && ip !== "unknown") {
+    const key = `contact:rl:${ip}`;
+    const currentCount = Number(await env.CONTACT_RATE_LIMIT_KV.get(key) ?? "0");
+    if (currentCount >= RATE_LIMIT_MAX_ATTEMPTS) {
+      return blockedResponse(
+        "rate_limited",
+        "Too many attempts. Please try again later.",
+        429,
+        origin,
+      );
+    }
+    await env.CONTACT_RATE_LIMIT_KV.put(
+      key,
+      String(currentCount + 1),
+      { expirationTtl: RATE_LIMIT_WINDOW_SECONDS },
+    );
   }
 
   let formData: FormData;
   try {
     formData = await request.formData();
   } catch {
-    return new Response(
-      JSON.stringify({ error: "Invalid form data." }),
-      { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders } },
+    return jsonResponse(
+      { success: false, error: { code: "invalid_form_data", message: "Invalid form data." } },
+      400,
+      origin ?? undefined,
     );
+  }
+
+  const turnstileToken = (formData.get("cf-turnstile-response") ?? "")
+    .toString()
+    .trim();
+  if (env.TURNSTILE_SECRET) {
+    if (!turnstileToken) {
+      return blockedResponse(
+        "turnstile_missing",
+        "Missing Turnstile token.",
+        403,
+        origin,
+      );
+    }
+    const verifyBody = new URLSearchParams();
+    verifyBody.set("secret", env.TURNSTILE_SECRET);
+    verifyBody.set("response", turnstileToken);
+    if (ip !== "unknown") {
+      verifyBody.set("remoteip", ip);
+    }
+    const verifyResp = await globalThis.fetch(
+      "https://challenges.cloudflare.com/turnstile/v0/siteverify",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: verifyBody.toString(),
+      },
+    );
+    if (!verifyResp.ok) {
+      return blockedResponse(
+        "turnstile_verify_failed",
+        "Unable to verify Turnstile token.",
+        503,
+        origin,
+      );
+    }
+    const verifyJson = await verifyResp.json<{ success?: boolean }>();
+    if (!verifyJson.success) {
+      return blockedResponse(
+        "turnstile_invalid",
+        "Turnstile validation failed.",
+        403,
+        origin,
+      );
+    }
   }
 
   const name    = (formData.get("name")    ?? "").toString().trim();
@@ -87,17 +266,38 @@ async function handleContactForm(
   const message = (formData.get("message") ?? "").toString().trim();
 
   if (!name || !email || !subject || !message) {
-    return new Response(
-      JSON.stringify({ error: "Missing required fields." }),
-      { status: 422, headers: { "Content-Type": "application/json", ...corsHeaders } },
+    return jsonResponse(
+      { success: false, error: { code: "missing_fields", message: "Missing required fields." } },
+      422,
+      origin ?? undefined,
     );
   }
 
   // Basic email format check
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-    return new Response(
-      JSON.stringify({ error: "Invalid email address." }),
-      { status: 422, headers: { "Content-Type": "application/json", ...corsHeaders } },
+    return jsonResponse(
+      { success: false, error: { code: "invalid_email", message: "Invalid email address." } },
+      422,
+      origin ?? undefined,
+    );
+  }
+
+  if (
+    message.length > MAX_MESSAGE_LENGTH ||
+    name.length > MAX_NAME_LENGTH ||
+    company.length > MAX_COMPANY_LENGTH ||
+    subject.length > MAX_SUBJECT_LENGTH
+  ) {
+    return jsonResponse(
+      {
+        success: false,
+        error: {
+          code: "payload_too_large",
+          message: "One or more fields exceed allowed length.",
+        },
+      },
+      413,
+      origin ?? undefined,
     );
   }
 
@@ -130,9 +330,10 @@ async function handleContactForm(
       await env.SEND_EMAIL.send({ from: fromAddr, to: toAddr, raw: stream });
     } catch (err) {
       console.error("Email send error:", err);
-      return new Response(
-        JSON.stringify({ error: "Failed to send email." }),
-        { status: 500, headers: { "Content-Type": "application/json", ...corsHeaders } },
+      return jsonResponse(
+        { success: false, error: { code: "email_send_failed", message: "Failed to send email." } },
+        500,
+        origin ?? undefined,
       );
     }
   } else {
@@ -140,10 +341,7 @@ async function handleContactForm(
     console.log("SEND_EMAIL binding not configured. Would have sent:\n", emailBody);
   }
 
-  return new Response(
-    JSON.stringify({ success: true }),
-    { status: 200, headers: { "Content-Type": "application/json", ...corsHeaders } },
-  );
+  return jsonResponse({ success: true }, 200, origin ?? undefined);
 }
 
 export default {
