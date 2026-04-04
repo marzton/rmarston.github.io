@@ -15,7 +15,7 @@ export interface Env {
   SEND_EMAIL?: SendEmailBinding;
 }
 
-function getRedirectStatus(value?: string): 301 | 302 | 307 | 308 {
+export function getRedirectStatus(value?: string): 301 | 302 | 307 | 308 {
   const parsed = Number(value);
   const redirectStatuses = [301, 302, 307, 308];
   if (redirectStatuses.includes(parsed)) {
@@ -24,7 +24,7 @@ function getRedirectStatus(value?: string): 301 | 302 | 307 | 308 {
   return 301;
 }
 
-function buildUpstreamUrl(origin: string, path: string, search: string): URL {
+export function buildUpstreamUrl(origin: string, path: string, search: string): URL {
   const url = new URL(origin);
   url.pathname = path;
   url.search = search;
@@ -232,7 +232,7 @@ export default {
       redirect: "manual",
     });
 
-    return fetch(upstreamRequest, {
+    return globalThis.fetch(upstreamRequest, {
       redirect: "manual",
     });
   },
