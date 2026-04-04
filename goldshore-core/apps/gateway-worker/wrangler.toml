@@ -1,0 +1,71 @@
+name              = "gs-gateway"
+main              = "src/index.ts"
+compatibility_date = "2026-04-01"
+compatibility_flags = ["nodejs_compat"]
+
+# ---------------------------------------------------------------------------
+# Routes
+# ---------------------------------------------------------------------------
+routes = [
+  { pattern = "gateway.goldshore.org/*", zone_name = "goldshore.org" }
+]
+
+# ---------------------------------------------------------------------------
+# Workers AI
+# All AI requests for the silo enter through the gateway — other workers
+# call the gateway via service binding instead of binding AI directly.
+# ---------------------------------------------------------------------------
+[ai]
+binding = "AI"
+
+# ---------------------------------------------------------------------------
+# Cloudflare Images
+# ---------------------------------------------------------------------------
+[images]
+binding = "IMAGES"
+
+# ---------------------------------------------------------------------------
+# D1 — goldshore-platform (shared database)
+# Populate database_id from infra/bindings.json → .d1.id after provisioning.
+# ---------------------------------------------------------------------------
+[[d1_databases]]
+binding       = "DB"
+database_name = "goldshore-platform"
+database_id   = "<D1_DATABASE_UUID>"
+
+# ---------------------------------------------------------------------------
+# KV Namespaces
+# ---------------------------------------------------------------------------
+[[kv_namespaces]]
+binding = "GS_CONFIG"
+id      = "<KV_GS_CONFIG_ID>"
+
+# ---------------------------------------------------------------------------
+# R2 Buckets
+# ---------------------------------------------------------------------------
+[[r2_buckets]]
+binding     = "R2_PUBLIC"
+bucket_name = "goldshore-public"
+
+[[r2_buckets]]
+binding     = "R2_LOGS"
+bucket_name = "goldshore-logs"
+
+# ---------------------------------------------------------------------------
+# Queues — producer only
+# ---------------------------------------------------------------------------
+[[queues.producers]]
+binding = "QUEUE_EVENTS"
+queue   = "goldshore-events"
+
+# ---------------------------------------------------------------------------
+# Service Bindings
+# ---------------------------------------------------------------------------
+[[services]]
+binding = "API"
+service = "gs-api"
+
+# ---------------------------------------------------------------------------
+# Secrets (set via `wrangler secret put`, never in [vars])
+# AIPROXYSIGNING_KEY  — signs requests forwarded to external AI providers
+# ---------------------------------------------------------------------------

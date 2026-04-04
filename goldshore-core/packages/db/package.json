@@ -1,0 +1,18 @@
+{
+  "name": "@goldshore/db",
+  "private": true,
+  "version": "0.1.0",
+  "main": "src/index.ts",
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "migrate":   "wrangler d1 migrations apply goldshore-platform --config ../../apps/api-worker/wrangler.toml"
+  },
+  "dependencies": {
+    "drizzle-orm": "^0.30.0"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.0.0",
+    "drizzle-kit": "^0.20.0",
+    "typescript": "^5.4.0"
+  }
+}

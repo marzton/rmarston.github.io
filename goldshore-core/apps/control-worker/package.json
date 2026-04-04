@@ -1,0 +1,20 @@
+{
+  "name": "@goldshore/control-worker",
+  "private": true,
+  "version": "0.1.0",
+  "scripts": {
+    "build":     "tsc --noEmit",
+    "typecheck": "tsc --noEmit",
+    "dev":       "wrangler dev --config wrangler.toml",
+    "deploy":    "wrangler deploy --config wrangler.toml"
+  },
+  "dependencies": {
+    "@goldshore/types": "workspace:*",
+    "@goldshore/db":    "workspace:*"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.0.0",
+    "typescript": "^5.4.0",
+    "wrangler": "^3.0.0"
+  }
+}
