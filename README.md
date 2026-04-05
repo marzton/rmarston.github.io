@@ -8,19 +8,25 @@ Live at **[rmarston.com](https://rmarston.com)**.
 | Layer | Ownership / Technology |
 |---|---|
 | Site | Static HTML/CSS (single-page portfolio) |
-| Hosting | GitHub Pages |
-| Domain | Cloudflare DNS + CNAME |
+| Hosting | **Cloudflare Pages (production)** |
+| Domain | Cloudflare DNS + Custom Domain on Pages |
 | Worker (`worker/index.ts`) | **Deprecated for this domain** (no active routes) |
 
 ## Route ownership (authoritative)
 
-This repository uses the **"worker not active for rmarston.com"** deployment model:
+This repository now uses the **"Cloudflare Pages owns production"** deployment model:
 
-- `rmarston.com` traffic is served directly by GitHub Pages.
+- `rmarston.com` traffic is served by **Cloudflare Pages production deployment**.
+- Current target deployment to promote: `https://fb43ad81.rmarston-github-io.pages.dev/`.
+- GitHub Pages must not be used as production origin for `rmarston.com`.
 - `wrangler.toml` must keep `routes = []` for this worker.
 - Any legacy Cloudflare Worker route for this project should be removed from the Cloudflare dashboard so it cannot intercept `rmarston.com`.
 
-This makes deployment ownership unambiguous and reproducible: GitHub Pages owns site serving, Cloudflare DNS owns domain mapping, and this worker owns no production route on `rmarston.com`.
+This makes deployment ownership unambiguous and reproducible: Cloudflare Pages owns site serving, Cloudflare DNS owns domain mapping, and this worker owns no production route on `rmarston.com`.
+
+## Promoting a preview deployment to production
+
+Use the runbook in [`DEPLOYMENT.md`](./DEPLOYMENT.md) to promote a specific preview deployment (including `fb43ad81`) to production and make it the main live version.
 
 ## Contact handling location
 
