@@ -34,7 +34,7 @@
         "url": "https://github.com/marzton/rmarston-github-io.git"
     },
     "dependencies": {
-        "autoprefixer": "10.4.14",
+        "autoprefixer": "10.4.27",
         "bootstrap": "5.3.8",
         "postcss": "8.5.9",
         "prettier": "3.8.1",
