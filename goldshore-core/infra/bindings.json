@@ -1,0 +1,85 @@
+{
+  "_comment": "Canonical source of truth for all Cloudflare resource IDs in the goldshore-core silo. Run infra/scripts/provision.sh to populate UUIDs. Commit the populated file after provisioning.",
+  "account_id": "<YOUR_CF_ACCOUNT_ID>",
+  "d1": {
+    "name": "goldshore-platform",
+    "id": "<D1_DATABASE_UUID>"
+  },
+  "kv": {
+    "GS_CONFIG": {
+      "id": "<KV_GS_CONFIG_ID>",
+      "purpose": "feature flags and app configuration"
+    },
+    "GS_SESSIONS": {
+      "id": "<KV_GS_SESSIONS_ID>",
+      "purpose": "user auth sessions"
+    },
+    "GS_CACHE": {
+      "id": "<KV_GS_CACHE_ID>",
+      "purpose": "ephemeral cache — TTL-bound entries only"
+    }
+  },
+  "r2": {
+    "goldshore-public": {
+      "name": "goldshore-public",
+      "purpose": "public CDN assets (images, static files)"
+    },
+    "goldshore-logs": {
+      "name": "goldshore-logs",
+      "purpose": "audit and access logs"
+    },
+    "goldshore-images": {
+      "name": "goldshore-images",
+      "purpose": "Cloudflare Images API uploads"
+    }
+  },
+  "queues": {
+    "events": {
+      "name": "goldshore-events",
+      "purpose": "primary platform event bus"
+    },
+    "dlq": {
+      "name": "goldshore-dlq",
+      "purpose": "dead-letter queue for failed goldshore-events messages"
+    }
+  },
+  "pages": {
+    "ai": {
+      "project": "goldshore-ai-app",
+      "domain": "goldshore.ai",
+      "source": "apps/goldshore-ai",
+      "output": "dist/"
+    },
+    "org": {
+      "project": "goldshore-org-web",
+      "domain": "goldshore.org",
+      "source": "apps/goldshore-org",
+      "output": "dist/"
+    },
+    "admin": {
+      "project": "goldshore-admin-app",
+      "domain": "admin.goldshore.org",
+      "source": "apps/admin-dashboard",
+      "output": "dist/",
+      "cf_access": true
+    }
+  },
+  "workers": {
+    "gateway": {
+      "name": "gs-gateway",
+      "route": "gateway.goldshore.org/*",
+      "bindings": ["AI", "IMAGES", "DB", "GS_CONFIG", "R2_PUBLIC", "R2_LOGS", "QUEUE_EVENTS", "API"]
+    },
+    "api": {
+      "name": "gs-api",
+      "routes": ["api.goldshore.org/*", "api-preview.goldshore.org/*"],
+      "bindings": ["DB", "GS_SESSIONS", "GS_CONFIG", "GATEWAY", "CONTROL"]
+    },
+    "control": {
+      "name": "gs-control",
+      "routes": [],
+      "_note": "No public route — reachable only via service binding from gs-api",
+      "bindings": ["DB", "GS_CONFIG", "GS_SESSIONS", "QUEUE_EVENTS_CONSUMER"]
+    }
+  }
+}

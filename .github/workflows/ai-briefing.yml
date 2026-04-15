@@ -1,0 +1,65 @@
+name: Generate AI Context & Briefing
+
+on:
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+
+jobs:
+  build-ai-context:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2 # Fetch the last commit for diffing
+
+      - name: Compile AI Briefing File
+        run: |
+          echo "# 🤖 Gold Shore Central AI Memory" > AI_CONTEXT.md
+          echo "Generated on: $(date)" >> AI_CONTEXT.md
+          echo "## 1. Latest Updates (Git Diff)" >> AI_CONTEXT.md
+          echo "\`\`\`diff" >> AI_CONTEXT.md
+          git diff HEAD~1 HEAD >> AI_CONTEXT.md
+          echo "\`\`\`" >> AI_CONTEXT.md
+          
+          echo "## 2. Core Agent Rules" >> AI_CONTEXT.md
+          cat AGENT_RULES.md >> AI_CONTEXT.md
+          
+          echo "## 3. Environment Specs" >> AI_CONTEXT.md
+          cat package.json | jq '{name, version, dependencies}' >> AI_CONTEXT.md
+
+      - name: Send Alert to Pixel Mobile
+        if: github.ref == 'refs/heads/master'
+        env:
+          MOBILE_WEBHOOK_URL: ${{ secrets.MOBILE_WEBHOOK_URL }}
+        run: |
+          if [ -z "$MOBILE_WEBHOOK_URL" ]; then
+            echo "Skipping mobile notification; MOBILE_WEBHOOK_URL secret not defined."
+            exit 0
+          fi
+          
+          # We grab the latest commit message and author to pass securely into the payload
+          COMMIT_MSG=$(git log -1 --pretty=format:"%s")
+          COMMIT_AUTHOR=$(git log -1 --pretty=format:"%an")
+          
+          PAYLOAD=$(jq -n \
+            --arg commit_author "$COMMIT_AUTHOR" \
+            --arg commit_msg "$COMMIT_MSG" \
+            '{text: ("🚨 **Antigravity / Copilot Update!** \n\n*Codebase:* rmarston-github-io\n*Author:* " + $commit_author + "\n*Commit:* " + $commit_msg + "\n\nYour Central AI Context Memory has been securely synchronized across the agency. Ask Gemini Mobile for the latest architecture via Google Workspace!")}') 
+          
+          # Curl request to a typical Google Chat / Discord / Zapier webhook
+          curl -H "Content-Type: application/json" \
+               -d "$PAYLOAD" \
+               "$MOBILE_WEBHOOK_URL"
+
+      - name: Commit AI Briefing
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add AI_CONTEXT.md
+          git commit -m "chore: Automate AI context briefing sync [skip ci]" || echo "No changes to commit"
+          git push

@@ -1,0 +1,21 @@
+name = "rmarston-github-io"
+main = "worker/index.ts"
+compatibility_date = "2026-03-22"
+
+# Deployment model for this repository:
+# - rmarston.com is served by GitHub Pages as the origin.
+# - Cloudflare provides DNS/proxy/WAF in front of the origin.
+# - This worker is intentionally NOT attached to rmarston.com routes.
+# - If any legacy worker route exists in Cloudflare dashboard, remove it.
+routes = []
+
+[vars]
+CONTACT_FROM_EMAIL = "contact@rmarston.com"
+CONTACT_TO_EMAIL = "marstonr6@gmail.com"
+
+# Cloudflare Email Routing — send_email binding
+# Requires Email Routing to be enabled on the rmarston.com zone and the
+# destination address to be verified in the Cloudflare dashboard.
+[[send_email]]
+name = "SEND_EMAIL"
+destination_address = "marstonr6@gmail.com"

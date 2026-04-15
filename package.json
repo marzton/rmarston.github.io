@@ -1,7 +1,7 @@
 {
-    "title": "Clean Blog",
-    "name": "startbootstrap-clean-blog",
-    "version": "6.0.9",
+    "title": "rmarston.com",
+    "name": "rmarston-github-io",
+    "version": "1.0.0",
     "scripts": {
         "build": "npm run clean && npm run build:pug && npm run build:scss && npm run build:scripts && npm run build:assets",
         "build:assets": "node scripts/build-assets.js",
@@ -13,7 +13,7 @@
         "start:debug": "npm run build && node scripts/start-debug.js",
         "test": "jest"
     },
-    "description": "Clean Blog is a Medium inspired blog theme for Bootstrap.",
+    "description": "Robert Marston's personal career website \u2014 DevOps Engineer & Cloud Architect.",
     "keywords": [
         "css",
         "sass",
@@ -22,34 +22,31 @@
         "theme",
         "template"
     ],
-    "homepage": "https://startbootstrap.com/theme/clean-blog",
+    "homepage": "https://rmarston.com",
     "bugs": {
-        "url": "https://github.com/StartBootstrap/startbootstrap-clean-blog/issues",
-        "email": "feedback@startbootstrap.com"
+        "url": "https://github.com/marzton/rmarston-github-io/issues"
     },
     "license": "MIT",
-    "author": "Start Bootstrap",
-    "contributors": [
-        "David Miller (https://davidmiller.io/)"
-    ],
+    "author": "Robert Marston",
+    "contributors": [],
     "repository": {
         "type": "git",
-        "url": "https://github.com/StartBootstrap/startbootstrap-clean-blog.git"
+        "url": "https://github.com/marzton/rmarston-github-io.git"
     },
     "dependencies": {
-        "bootstrap": "5.2.3"
+        "autoprefixer": "10.4.27",
+        "bootstrap": "5.3.8",
+        "postcss": "8.5.9",
+        "prettier": "3.8.2",
+        "pug": "3.0.3",
+        "sass": "1.60.0",
+        "shelljs": "0.10.0",
+        "upath": "3.0.6"
     },
     "devDependencies": {
-        "autoprefixer": "10.4.14",
-        "browser-sync": "2.29.1",
-        "chokidar": "3.5.3",
-        "concurrently": "6.3.0",
-        "postcss": "8.4.21",
-        "prettier": "2.8.6",
-        "pug": "3.0.2",
-        "sass": "1.60.0",
-        "shelljs": "0.8.5",
-        "upath": "2.0.1",
-        "jest": "27.5.1"
+        "browser-sync": "3.0.4",
+        "chokidar": "5.0.0",
+        "concurrently": "9.2.1",
+        "jest": "^30.3.0"
     }
 }

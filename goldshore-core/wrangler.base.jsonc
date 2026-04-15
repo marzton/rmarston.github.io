@@ -1,0 +1,58 @@
+// wrangler.base.jsonc
+// Shared binding contract reference for goldshore-core workers.
+// This file is DOCUMENTATION ONLY — wrangler does not read it.
+// Copy the relevant sections into each apps/*/wrangler.toml.
+//
+// Populate <...> placeholders from infra/bindings.json after running
+// infra/scripts/provision.sh.
+{
+  // D1 — shared across all workers
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "goldshore-platform",
+      "database_id": "<D1_DATABASE_UUID>"      // infra/bindings.json → .d1.id
+    }
+  ],
+
+  // KV Namespaces
+  "kv_namespaces": [
+    { "binding": "GS_CONFIG",   "id": "<KV_GS_CONFIG_ID>" },   // .kv.GS_CONFIG.id
+    { "binding": "GS_SESSIONS", "id": "<KV_GS_SESSIONS_ID>" }, // .kv.GS_SESSIONS.id
+    { "binding": "GS_CACHE",    "id": "<KV_GS_CACHE_ID>" }     // .kv.GS_CACHE.id
+  ],
+
+  // R2 Buckets
+  "r2_buckets": [
+    { "binding": "R2_PUBLIC", "bucket_name": "goldshore-public" },
+    { "binding": "R2_LOGS",   "bucket_name": "goldshore-logs" },
+    { "binding": "R2_IMAGES", "bucket_name": "goldshore-images" }
+  ],
+
+  // Workers AI — gateway-worker only
+  "ai": { "binding": "AI" },
+
+  // Cloudflare Images — gateway-worker only
+  "images": { "binding": "IMAGES" },
+
+  // Queues
+  "queues": {
+    "producers": [
+      { "binding": "QUEUE_EVENTS", "queue": "goldshore-events" }
+    ],
+    "consumers": [
+      {
+        "queue": "goldshore-events",
+        "max_batch_size": 50,
+        "dead_letter_queue": "goldshore-dlq"
+      }
+    ]
+  },
+
+  // Service bindings
+  "services": [
+    { "binding": "GATEWAY", "service": "gs-gateway" },
+    { "binding": "API",     "service": "gs-api" },
+    { "binding": "CONTROL", "service": "gs-control" }
+  ]
+}

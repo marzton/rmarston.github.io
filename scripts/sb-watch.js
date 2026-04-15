@@ -1,6 +1,5 @@
 'use strict';
 
-const _ = require('lodash');
 const chokidar = require('chokidar');
 const upath = require('upath');
 const renderAssets = require('./render-assets');
@@ -25,7 +24,7 @@ watcher.on('ready', () => {
     console.log(' READY TO ROLL!');
 });
 
-_handleSCSS();
+renderSCSS();
 
 function _processFile(filePath, watchEvent) {
     
@@ -47,7 +46,7 @@ function _processFile(filePath, watchEvent) {
 
     if (filePath.match(/\.scss$/)) {
         if (watchEvent === 'change') {
-            return _handleSCSS(filePath, watchEvent);
+            return renderSCSS();
         }
         return;
     }
@@ -76,11 +75,7 @@ function _handlePug(filePath, watchEvent) {
 
 function _renderAllPug() {
     console.log('### INFO: Rendering All');
-    _.each(allPugFiles, (value, filePath) => {
+    Object.keys(allPugFiles).forEach(filePath => {
         renderPug(filePath);
     });
-}
-
-function _handleSCSS() {
-    renderSCSS();
 }

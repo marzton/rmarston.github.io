@@ -1,0 +1,45 @@
+name              = "gs-control"
+main              = "src/index.ts"
+compatibility_date = "2026-04-01"
+compatibility_flags = ["nodejs_compat"]
+
+# ---------------------------------------------------------------------------
+# Routes: NONE — internal-only Worker.
+# Reachable exclusively via service binding from gs-api.
+# Adding a public route here would bypass CF Access protection.
+# ---------------------------------------------------------------------------
+routes = []
+
+# ---------------------------------------------------------------------------
+# D1 — goldshore-platform (shared database)
+# ---------------------------------------------------------------------------
+[[d1_databases]]
+binding       = "DB"
+database_name = "goldshore-platform"
+database_id   = "<D1_DATABASE_UUID>"
+
+# ---------------------------------------------------------------------------
+# KV Namespaces
+# ---------------------------------------------------------------------------
+[[kv_namespaces]]
+binding = "GS_CONFIG"
+id      = "<KV_GS_CONFIG_ID>"
+
+[[kv_namespaces]]
+binding = "GS_SESSIONS"
+id      = "<KV_GS_SESSIONS_ID>"
+
+# ---------------------------------------------------------------------------
+# Queues — consumer only
+# Drains goldshore-events; failed messages route to goldshore-dlq.
+# ---------------------------------------------------------------------------
+[[queues.consumers]]
+queue              = "goldshore-events"
+max_batch_size     = 50
+max_batch_timeout  = 30
+dead_letter_queue  = "goldshore-dlq"
+
+# ---------------------------------------------------------------------------
+# Secrets (set via `wrangler secret put`, never in [vars])
+# RESEND_API_KEY  — bounce / webhook queue processing
+# ---------------------------------------------------------------------------

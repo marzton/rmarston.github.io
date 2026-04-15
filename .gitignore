@@ -1,2 +1,23 @@
-node_modules
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+
+# OS/editor
 .DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Environment / secrets
+.env
+.env.local
+.dev.vars
+
+# Binaries / accidental commits
+*.pdf
+*.tmp
+
+# Wrangler
+.wrangler/
