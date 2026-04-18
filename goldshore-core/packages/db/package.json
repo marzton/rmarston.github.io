@@ -8,7 +8,7 @@
     "migrate":   "wrangler d1 migrations apply goldshore-platform --config ../../apps/api-worker/wrangler.toml"
   },
   "dependencies": {
-    "drizzle-orm": "^0.30.0"
+    "drizzle-orm": "^0.45.2"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.0.0",

@@ -1,16 +1,41 @@
 # rmarston.com — Personal Portfolio
 
 Personal career website for Robert Marston, DevOps Engineer & Cloud Architect.  
-Live at **[rmarston.com](https://rmarston.com)** · Hosted on GitHub Pages · Edge-routed via Cloudflare.
+Live at **[rmarston.com](https://rmarston.com)**.
 
 ## Stack
 
-| Layer | Technology |
+| Layer | Ownership / Technology |
 |---|---|
 | Site | Static HTML/CSS (single-page portfolio) |
-| Hosting | GitHub Pages |
-| Domain | Cloudflare DNS + CNAME |
-| Edge | Cloudflare Worker (`worker/index.ts`) |
+| Hosting | **GitHub Pages (production origin)** |
+| Domain | Cloudflare DNS proxy in front of GitHub Pages |
+| Worker (`worker/index.ts`) | Optional utility worker only (**no site routes**) |
+
+## Route ownership (authoritative)
+
+This repository uses the **"GitHub Pages origin + Cloudflare DNS/edge"** deployment model:
+
+- `rmarston.com` and `www.rmarston.com` resolve through **Cloudflare DNS**.
+- Cloudflare DNS points to the GitHub Pages origin host `marzton.github.io`.
+- The site origin is **GitHub Pages** for this repository.
+- `wrangler.toml` must keep `routes = []` so no Worker can intercept site traffic.
+- Any legacy Cloudflare Worker route for `rmarston.com/*` should be removed in Cloudflare.
+
+This keeps routing deterministic: GitHub Pages serves content, Cloudflare provides DNS/proxy/WAF, and Workers do not own the base web route.
+
+## Cloudflare DNS records (required)
+
+In the `rmarston.com` Cloudflare zone, configure:
+
+- `@` → `CNAME` → `marzton.github.io` (proxied)
+- `www` → `CNAME` → `marzton.github.io` (proxied)
+
+GitHub Pages must have custom domain set to `rmarston.com`, and this repo must keep the `CNAME` file committed with `rmarston.com`.
+
+## Contact handling location
+
+Contact handling for `rmarston.com` is **not** hosted in this worker. The site contact path is handled outside this worker (direct email/LinkedIn links on the site and associated external messaging flows).
 
 ## Local Development
 
@@ -18,15 +43,13 @@ Open `index.html` directly in a browser — no build step required for the portf
 
 The `src/` directory contains a legacy Bootstrap/Pug build system (Start Bootstrap "Clean Blog" template) that is no longer used for the main site.
 
-## Cloudflare Worker
+## Legacy archive content
 
-The worker in `worker/index.ts` handles domain-level redirects.  
-Deploy with [Wrangler](https://developers.cloudflare.com/workers/wrangler/):
+This repository also contains static legacy directories:
 
-```bash
-npm install -g wrangler
-wrangler deploy
-```
+- **`/armsway`**: Patented Disposable Blood Pressure Sleeves.
+- **`/solefoodny`**: Sneaker Boutique Brand Identity (#SFNY).
+- **`index.html`**: Executive bio and directory links.
 
 ## Worker Contact Email Configuration
 
@@ -44,17 +67,3 @@ When deploying with Wrangler, set these under `[vars]` in `wrangler.toml`, and k
 - Email: [marstonr6@gmail.com](mailto:marstonr6@gmail.com)
 - LinkedIn: [linkedin.com/in/r-marston](https://www.linkedin.com/in/r-marston)
 - GitHub: [github.com/marzton](https://github.com/marzton)
-# 📂 rmarston.github.io
-**Legacy Registry & Patent Archive**
-
-A minimalist, high-performance static repository serving as the permanent home for legacy brands and intellectual property.
-
-## 📁 Active Directories
-- **/armsway**: Patented Disposable Blood Pressure Sleeves.
-- **/solefoodny**: Sneaker Boutique Brand Identity (#SFNY).
-- **index.html**: Executive Bio & Directory linking to `rmarston.com`.
-
-## 🛠️ Architecture
-- **Tech Stack**: Vanilla HTML5, CSS3, JS.
-- **Performance**: 100/100 Lighthouse score goal.
-- **Hosting**: GitHub Pages (Personal Tier).
