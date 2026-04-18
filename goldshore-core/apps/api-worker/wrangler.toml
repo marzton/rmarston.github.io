@@ -1,0 +1,49 @@
+name              = "gs-api"
+main              = "src/index.ts"
+compatibility_date = "2026-04-01"
+compatibility_flags = ["nodejs_compat"]
+
+# ---------------------------------------------------------------------------
+# Routes
+# ---------------------------------------------------------------------------
+routes = [
+  { pattern = "api.goldshore.org/*",        zone_name = "goldshore.org" },
+  { pattern = "api-preview.goldshore.org/*", zone_name = "goldshore.org" }
+]
+
+# ---------------------------------------------------------------------------
+# D1 — goldshore-platform (shared database)
+# ---------------------------------------------------------------------------
+[[d1_databases]]
+binding       = "DB"
+database_name = "goldshore-platform"
+database_id   = "<D1_DATABASE_UUID>"
+
+# ---------------------------------------------------------------------------
+# KV Namespaces
+# ---------------------------------------------------------------------------
+[[kv_namespaces]]
+binding = "GS_SESSIONS"
+id      = "<KV_GS_SESSIONS_ID>"
+
+[[kv_namespaces]]
+binding = "GS_CONFIG"
+id      = "<KV_GS_CONFIG_ID>"
+
+# ---------------------------------------------------------------------------
+# Service Bindings
+# AI and Images are NOT bound here — call the gateway via GATEWAY binding.
+# ---------------------------------------------------------------------------
+[[services]]
+binding = "GATEWAY"
+service = "gs-gateway"
+
+[[services]]
+binding = "CONTROL"
+service = "gs-control"
+
+# ---------------------------------------------------------------------------
+# Secrets (set via `wrangler secret put`, never in [vars])
+# RESEND_API_KEY  — transactional email via Resend
+# CF_ACCESS_AUD   — Audience tag for validating CF Access JWTs
+# ---------------------------------------------------------------------------

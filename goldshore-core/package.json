@@ -1,0 +1,25 @@
+{
+  "name": "goldshore-core",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Goldshore platform monorepo — goldshore.org + goldshore.ai",
+  "packageManager": "pnpm@9.0.0",
+  "scripts": {
+    "build":    "pnpm -r build",
+    "dev":      "pnpm -r --parallel dev",
+    "typecheck": "pnpm -r typecheck",
+    "deploy:gateway": "wrangler deploy --config apps/gateway-worker/wrangler.toml",
+    "deploy:api":     "wrangler deploy --config apps/api-worker/wrangler.toml",
+    "deploy:control": "wrangler deploy --config apps/control-worker/wrangler.toml",
+    "deploy:all":     "pnpm deploy:gateway && pnpm deploy:api && pnpm deploy:control",
+    "provision":      "bash infra/scripts/provision.sh"
+  },
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "devDependencies": {
+    "typescript":     "^5.4.0",
+    "wrangler":       "^3.0.0"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "zone_name": "rmarston.com",
+  "required_dns": [
+    "api.rmarston.com",
+    "admin.rmarston.com",
+    "preview.rmarston.com"
+  ],
+  "required_routes": [
+    "api.rmarston.com/*",
+    "admin.rmarston.com/*",
+    "preview.rmarston.com/*"
+  ],
+  "forbidden_routes": [
+    "rmarston.com/*",
+    "www.rmarston.com/*"
+  ],
+  "required_kv_namespaces": []
+}
