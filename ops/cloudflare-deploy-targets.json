@@ -1,0 +1,11 @@
+{
+  "repo": "rmarston.github.io",
+  "production": {
+    "host": "rmarston.com",
+    "worker_url": "https://rmarston.com"
+  },
+  "preview": {
+    "host": "preview.rmarston.com",
+    "worker_url": "https://preview.rmarston.com"
+  }
+}
