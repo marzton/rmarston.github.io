@@ -63,6 +63,11 @@ app.post("/ai/run/:model", async (c) => {
 // Image upload proxy
 // ---------------------------------------------------------------------------
 app.post("/images/upload", async (c) => {
+  const signingKey = c.req.header("x-goldshore-signing-key");
+  if (signingKey !== c.env.AIPROXYSIGNING_KEY) {
+    return c.json({ error: "Unauthorized" }, 401);
+  }
+
   const formData = await c.req.formData();
   const file = formData.get("file");
   if (!file || !(file instanceof File)) {
