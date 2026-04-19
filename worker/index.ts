@@ -1,5 +1,3 @@
-export interface Env {}
-
 export interface Env {
   CONTACT_FROM_EMAIL?: string;
   CONTACT_TO_EMAIL?: string;

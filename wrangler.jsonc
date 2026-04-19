@@ -1,0 +1,42 @@
+// rmarston-com — REBUILD with real content
+// Serves: rmarston.com + www.rmarston.com
+// Pattern: Worker shell serving static assets from R2 or Pages-backed
+{
+  "name": "rmarston-com",
+  "main": "worker/index.ts",
+  "compatibility_date": "2025-03-07",
+  "compatibility_flags": ["nodejs_compat"],
+  "observability": {
+    "enabled": true,
+    "head_sampling_rate": 1
+  },
+  "vars": {
+    "ENV": "production",
+    "PRIMARY_DOMAIN": "rmarston.com",
+    "CONTACT_FROM_EMAIL": "hello@rmarston.com",
+    "CONTACT_TO_EMAIL": "rob@rmarston.com"
+  },
+  // Secrets
+  // WEBHOOK_SECRET
+  "assets": {
+    "directory": "./dist",
+    "not_found_handling": "single-page-application",
+    "binding": "ASSETS"
+  },
+  "send_email": [
+    {
+      "name": "SEND_EMAIL"
+    }
+  ],
+  "d1_databases": [
+    {
+      "binding": "AUDIT_DB",
+      "database_name": "gs_audit_db",
+      "database_id": "1ae71d76-188f-481b-91d9-db2d39013f68"
+    }
+  ],
+  "routes": [
+    { "pattern": "rmarston.com/*", "zone_name": "rmarston.com" },
+    { "pattern": "www.rmarston.com/*", "zone_name": "rmarston.com" }
+  ]
+}

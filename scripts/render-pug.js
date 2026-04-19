@@ -31,5 +31,5 @@ module.exports = async function renderPug(filePath) {
         htmlWhitespaceSensitivity: 'ignore'
     });
 
-    fs.writeFileSync(destPath, prettified);
+    await fs.promises.writeFile(destPath, prettified);
 };

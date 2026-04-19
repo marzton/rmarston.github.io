@@ -7,7 +7,7 @@ resource "cloudflare_record" "goldshore_org_apex" {
   zone_id = var.cloudflare_zone_id_org
   name    = "@"
   type    = "CNAME"
-  value   = "goldshore-org-web.pages.dev"
+  value   = cloudflare_pages_project.goldshore_org.subdomain
   proxied = true
 }
 
@@ -21,12 +21,11 @@ resource "cloudflare_record" "goldshore_org_www" {
 }
 
 # admin.goldshore.org → goldshore-admin-app.pages.dev
-# FIX: was incorrectly pointing to goldshore-web.pages.dev
 resource "cloudflare_record" "goldshore_org_admin" {
   zone_id = var.cloudflare_zone_id_org
   name    = "admin"
   type    = "CNAME"
-  value   = "goldshore-admin-app.pages.dev"
+  value   = cloudflare_pages_project.goldshore_admin.subdomain
   proxied = true
 }
 
@@ -57,7 +56,7 @@ resource "cloudflare_record" "goldshore_ai_apex" {
   zone_id = var.cloudflare_zone_id_ai
   name    = "@"
   type    = "CNAME"
-  value   = "goldshore-ai-app.pages.dev"
+  value   = cloudflare_pages_project.goldshore_ai.subdomain
   proxied = true
 }
 

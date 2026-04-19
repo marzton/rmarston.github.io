@@ -1,153 +1,881 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
-        <title>Clean Blog - Start Bootstrap Theme</title>
-        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-        <!-- Font Awesome icons (free version)-->
-        <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
-        <!-- Google fonts-->
-        <link href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css" />
-        <!-- Core theme CSS (includes Bootstrap)-->
-        <link href="css/styles.css" rel="stylesheet" />
-    </head>
-    <body>
-        <!-- Navigation-->
-        <nav class="navbar navbar-expand-lg navbar-light" id="mainNav">
-            <div class="container px-4 px-lg-5">
-                <a class="navbar-brand" href="index.html">Start Bootstrap</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                    Menu
-                    <i class="fas fa-bars"></i>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarResponsive">
-                    <ul class="navbar-nav ms-auto py-4 py-lg-0">
-                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="index.html">Home</a></li>
-                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="about.html">About</a></li>
-                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="post.html">Sample Post</a></li>
-                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="contact.html">Contact</a></li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-        <!-- Page Header-->
-        <header class="masthead" style="background-image: url('assets/img/home-bg.jpg')">
-            <div class="container position-relative px-4 px-lg-5">
-                <div class="row gx-4 gx-lg-5 justify-content-center">
-                    <div class="col-md-10 col-lg-8 col-xl-7">
-                        <div class="site-heading">
-                            <h1>Clean Blog</h1>
-                            <span class="subheading">A Blog Theme by Start Bootstrap</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </header>
-        <!-- Main Content-->
-        <div class="container px-4 px-lg-5">
-            <div class="row gx-4 gx-lg-5 justify-content-center">
-                <div class="col-md-10 col-lg-8 col-xl-7">
-                    <!-- Post preview-->
-                    <div class="post-preview">
-                        <a href="post.html">
-                            <h2 class="post-title">Man must explore, and this is exploration at its greatest</h2>
-                            <h3 class="post-subtitle">Problems look mighty small from 150 miles up</h3>
-                        </a>
-                        <p class="post-meta">
-                            Posted by
-                            <a href="#!">Start Bootstrap</a>
-                            on September 24, 2023
-                        </p>
-                    </div>
-                    <!-- Divider-->
-                    <hr class="my-4" />
-                    <!-- Post preview-->
-                    <div class="post-preview">
-                        <a href="post.html"><h2 class="post-title">I believe every human has a finite number of heartbeats. I don't intend to waste any of mine.</h2></a>
-                        <p class="post-meta">
-                            Posted by
-                            <a href="#!">Start Bootstrap</a>
-                            on September 18, 2023
-                        </p>
-                    </div>
-                    <!-- Divider-->
-                    <hr class="my-4" />
-                    <!-- Post preview-->
-                    <div class="post-preview">
-                        <a href="post.html">
-                            <h2 class="post-title">Science has not yet mastered prophecy</h2>
-                            <h3 class="post-subtitle">We predict too much for the next year and yet far too little for the next ten.</h3>
-                        </a>
-                        <p class="post-meta">
-                            Posted by
-                            <a href="#!">Start Bootstrap</a>
-                            on August 24, 2023
-                        </p>
-                    </div>
-                    <!-- Divider-->
-                    <hr class="my-4" />
-                    <!-- Post preview-->
-                    <div class="post-preview">
-                        <a href="post.html">
-                            <h2 class="post-title">Failure is not an option</h2>
-                            <h3 class="post-subtitle">Many say exploration is part of our destiny, but it’s actually our duty to future generations.</h3>
-                        </a>
-                        <p class="post-meta">
-                            Posted by
-                            <a href="#!">Start Bootstrap</a>
-                            on July 8, 2023
-                        </p>
-                    </div>
-                    <!-- Divider-->
-                    <hr class="my-4" />
-                    <!-- Pager-->
-                    <div class="d-flex justify-content-end mb-4"><a class="btn btn-primary text-uppercase" href="#!">Older Posts →</a></div>
-                </div>
-            </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Rob Marston — builder, systems thinker, founder of Gold Shore Labs." />
+  <meta name="author" content="Rob Marston" />
+  <title>Rob Marston</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --terracotta: #c0633a;
+      --terracotta-light: #d4795a;
+      --terracotta-dim: rgba(192,99,58,0.12);
+      --ink: #1a1612;
+      --ink-mid: #3d352e;
+      --ink-soft: #6b5f56;
+      --parchment: #f7f3ee;
+      --parchment-mid: #ede7df;
+      --white: #fdfaf7;
+      --serif: 'DM Serif Display', Georgia, serif;
+      --mono: 'DM Mono', 'Courier New', monospace;
+      --sans: 'DM Sans', system-ui, sans-serif;
+      --track-wide: 0.08em;
+      --track-wider: 0.14em;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; font-size: 16px; }
+
+    body {
+      font-family: var(--sans);
+      background: var(--white);
+      color: var(--ink);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 3rem;
+      background: rgba(253,250,247,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--parchment-mid);
+    }
+
+    .nav-mark {
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: var(--track-wider);
+      text-transform: uppercase;
+      color: var(--terracotta);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      letter-spacing: var(--track-wider);
+      text-transform: uppercase;
+      color: var(--ink-soft);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--terracotta); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      padding-top: 5rem;
+    }
+
+    .hero-left {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 5rem 4rem 5rem 3rem;
+      border-right: 1px solid var(--parchment-mid);
+    }
+
+    .hero-label {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      letter-spacing: var(--track-wider);
+      text-transform: uppercase;
+      color: var(--terracotta);
+      margin-bottom: 2rem;
+    }
+
+    .hero-name {
+      font-family: var(--serif);
+      font-size: clamp(3.5rem, 6vw, 5.5rem);
+      line-height: 1.0;
+      color: var(--ink);
+      margin-bottom: 1.5rem;
+      letter-spacing: -0.01em;
+    }
+
+    .hero-name em {
+      font-style: italic;
+      color: var(--terracotta);
+    }
+
+    .hero-sub {
+      font-family: var(--sans);
+      font-size: 1.05rem;
+      font-weight: 300;
+      color: var(--ink-soft);
+      max-width: 38ch;
+      line-height: 1.7;
+      margin-bottom: 3rem;
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      letter-spacing: var(--track-wider);
+      text-transform: uppercase;
+      color: var(--terracotta);
+      text-decoration: none;
+      border-bottom: 1px solid var(--terracotta);
+      padding-bottom: 0.2rem;
+      transition: gap 0.2s;
+      width: fit-content;
+    }
+
+    .hero-cta:hover { gap: 1.25rem; }
+
+    .hero-right {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 3rem;
+      background: var(--parchment);
+    }
+
+    .hero-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+      margin-bottom: 3rem;
+    }
+
+    .stat {
+      background: var(--white);
+      padding: 1.5rem;
+    }
+
+    .stat-number {
+      font-family: var(--serif);
+      font-size: 2.2rem;
+      color: var(--ink);
+      line-height: 1;
+      margin-bottom: 0.4rem;
+    }
+
+    .stat-label {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: var(--track-wider);
+      text-transform: uppercase;
+      color: var(--ink-soft);
+    }
+
+    .hero-scroll-hint {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: var(--track-wider);
+      text-transform: uppercase;
+      color: var(--ink-soft);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .hero-scroll-hint::before {
+      content: '';
+      display: block;
+      width: 40px;
+      height: 1px;
+      background: var(--parchment-mid);
+    }
+
+    /* ── SECTION BASE ── */
+    section {
+      padding: 7rem 3rem;
+    }
+
+    .section-label {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      letter-spacing: var(--track-wider);
+      text-transform: uppercase;
+      color: var(--terracotta);
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--parchment-mid);
+      max-width: 80px;
+    }
+
+    .section-title {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      line-height: 1.1;
+      color: var(--ink);
+      margin-bottom: 1.5rem;
+    }
+
+    /* ── ABOUT ── */
+    #about {
+      background: var(--ink);
+      color: var(--parchment);
+    }
+
+    #about .section-label { color: var(--terracotta-light); }
+    #about .section-label::after { background: var(--ink-mid); }
+
+    #about .section-title { color: var(--parchment); }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 5rem;
+      max-width: 1100px;
+    }
+
+    .about-body {
+      font-size: 1.05rem;
+      font-weight: 300;
+      color: rgba(237,231,223,0.8);
+      line-height: 1.8;
+    }
+
+    .about-body p + p { margin-top: 1.25rem; }
+
+    .about-body strong {
+      color: var(--parchment);
+      font-weight: 500;
+    }
+
+    .about-aside {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      padding-top: 0.5rem;
+    }
+
+    .aside-block {
+      border-left: 2px solid var(--terracotta);
+      padding-left: 1.25rem;
+    }
+
+    .aside-block-label {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: var(--track-wider);
+      text-transform: uppercase;
+      color: var(--ink-soft);
+      margin-bottom: 0.5rem;
+    }
+
+    .aside-block-value {
+      font-family: var(--sans);
+      font-size: 0.95rem;
+      color: var(--parchment);
+      line-height: 1.5;
+    }
+
+    /* ── WORK ── */
+    #work { background: var(--white); }
+
+    .work-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      margin-top: 3rem;
+    }
+
+    .work-card {
+      background: var(--parchment);
+      padding: 2.5rem 2rem;
+      transition: background 0.2s;
+      position: relative;
+    }
+
+    .work-card:hover { background: var(--parchment-mid); }
+
+    .work-card-tag {
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      letter-spacing: var(--track-wider);
+      text-transform: uppercase;
+      color: var(--terracotta);
+      margin-bottom: 1.25rem;
+    }
+
+    .work-card-title {
+      font-family: var(--serif);
+      font-size: 1.5rem;
+      color: var(--ink);
+      margin-bottom: 0.75rem;
+      line-height: 1.2;
+    }
+
+    .work-card-desc {
+      font-size: 0.9rem;
+      color: var(--ink-soft);
+      line-height: 1.65;
+      font-weight: 300;
+    }
+
+    .work-card-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 1.5rem;
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: var(--track-wider);
+      text-transform: uppercase;
+      color: var(--terracotta);
+      text-decoration: none;
+      transition: gap 0.2s;
+    }
+
+    .work-card-link:hover { gap: 0.9rem; }
+
+    /* ── CAREER ── */
+    #career {
+      background: var(--parchment);
+    }
+
+    .timeline {
+      margin-top: 3rem;
+      max-width: 800px;
+      position: relative;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0.6rem;
+      bottom: 0;
+      width: 1px;
+      background: var(--parchment-mid);
+    }
+
+    .timeline-item {
+      padding: 0 0 3rem 2.5rem;
+      position: relative;
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -3px;
+      top: 0.55rem;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--terracotta);
+    }
+
+    .timeline-period {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: var(--track-wider);
+      text-transform: uppercase;
+      color: var(--ink-soft);
+      margin-bottom: 0.4rem;
+    }
+
+    .timeline-role {
+      font-family: var(--serif);
+      font-size: 1.3rem;
+      color: var(--ink);
+      margin-bottom: 0.2rem;
+    }
+
+    .timeline-org {
+      font-family: var(--sans);
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--terracotta);
+      margin-bottom: 0.75rem;
+      letter-spacing: 0.02em;
+    }
+
+    .timeline-desc {
+      font-size: 0.9rem;
+      color: var(--ink-soft);
+      line-height: 1.65;
+      font-weight: 300;
+      max-width: 55ch;
+    }
+
+    /* ── CONTACT ── */
+    #contact {
+      background: var(--ink);
+      color: var(--parchment);
+    }
+
+    #contact .section-label { color: var(--terracotta-light); }
+    #contact .section-label::after { background: var(--ink-mid); }
+    #contact .section-title { color: var(--parchment); }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      margin-top: 3rem;
+    }
+
+    .contact-intro {
+      font-size: 1.05rem;
+      font-weight: 300;
+      color: rgba(237,231,223,0.75);
+      line-height: 1.8;
+      max-width: 40ch;
+    }
+
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .form-field {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .form-field label {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: var(--track-wider);
+      text-transform: uppercase;
+      color: var(--ink-soft);
+    }
+
+    .form-field input,
+    .form-field textarea,
+    .form-field select {
+      background: var(--ink-mid);
+      border: 1px solid rgba(255,255,255,0.06);
+      color: var(--parchment);
+      font-family: var(--sans);
+      font-size: 0.9rem;
+      padding: 0.8rem 1rem;
+      border-radius: 2px;
+      outline: none;
+      transition: border-color 0.2s;
+      -webkit-appearance: none;
+    }
+
+    .form-field input:focus,
+    .form-field textarea:focus,
+    .form-field select:focus {
+      border-color: var(--terracotta);
+    }
+
+    .form-field textarea { resize: vertical; min-height: 120px; }
+
+    .form-field select option { background: var(--ink-mid); }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .form-submit {
+      background: var(--terracotta);
+      color: var(--white);
+      border: none;
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      letter-spacing: var(--track-wider);
+      text-transform: uppercase;
+      padding: 0.9rem 2rem;
+      cursor: pointer;
+      transition: background 0.2s;
+      align-self: flex-start;
+      border-radius: 2px;
+    }
+
+    .form-submit:hover { background: var(--terracotta-light); }
+
+    .form-notice {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      color: var(--ink-soft);
+      margin-top: 0.5rem;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--ink);
+      border-top: 1px solid var(--ink-mid);
+      padding: 2rem 3rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .footer-mark {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: var(--track-wider);
+      text-transform: uppercase;
+      color: var(--ink-soft);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .footer-links a {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: var(--track-wider);
+      text-transform: uppercase;
+      color: var(--ink-soft);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: var(--terracotta); }
+
+    /* ── STATUS INDICATOR ── */
+    .status-dot {
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #4ade80;
+      margin-right: 0.4rem;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { gap: 1.5rem; }
+
+      .hero { grid-template-columns: 1fr; min-height: auto; }
+      .hero-left { padding: 7rem 1.5rem 3rem; border-right: none; border-bottom: 1px solid var(--parchment-mid); }
+      .hero-right { padding: 2rem 1.5rem; }
+      .hero-stats { grid-template-columns: 1fr 1fr; }
+
+      section { padding: 4rem 1.5rem; }
+
+      .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .work-grid { grid-template-columns: 1fr; }
+      .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .form-row { grid-template-columns: 1fr; }
+
+      footer { flex-direction: column; gap: 1.5rem; text-align: center; }
+    }
+
+    /* ── UTILITY ── */
+    .visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="/" class="nav-mark">Rob Marston</a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#work">Work</a></li>
+      <li><a href="#career">Career</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" aria-label="Introduction">
+    <div class="hero-left">
+      <p class="hero-label"><span class="status-dot"></span>Available for select engagements</p>
+      <h1 class="hero-name">Rob<br><em>Marston</em></h1>
+      <p class="hero-sub">
+        Builder of systems and products at the intersection of operations, data intelligence, and applied AI. Founder of Gold Shore Labs.
+      </p>
+      <a href="#work" class="hero-cta">Selected work &rarr;</a>
+    </div>
+    <div class="hero-right">
+      <div class="hero-stats">
+        <div class="stat">
+          <div class="stat-number">20+</div>
+          <div class="stat-label">Years in industry</div>
         </div>
-        <!-- Footer-->
-        <footer class="border-top">
-            <div class="container px-4 px-lg-5">
-                <div class="row gx-4 gx-lg-5 justify-content-center">
-                    <div class="col-md-10 col-lg-8 col-xl-7">
-                        <ul class="list-inline text-center">
-                            <li class="list-inline-item">
-                                <a href="#!">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fas fa-circle fa-stack-2x"></i>
-                                        <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a href="#!">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fas fa-circle fa-stack-2x"></i>
-                                        <i class="fab fa-facebook-f fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a href="#!">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fas fa-circle fa-stack-2x"></i>
-                                        <i class="fab fa-github fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                        </ul>
-                        <div class="small text-center text-muted fst-italic">Copyright &copy; Your Website 2023</div>
-                    </div>
-                </div>
-            </div>
-        </footer>
-        <!-- Bootstrap core JS-->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-        <!-- Core theme JS-->
-        <script src="js/scripts.js"></script>
-    </body>
+        <div class="stat">
+          <div class="stat-number">4</div>
+          <div class="stat-label">Active ventures</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number">NYC</div>
+          <div class="stat-label">Base of operations</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number">&#x2715;&#x2715;</div>
+          <div class="stat-label">Patented products</div>
+        </div>
+      </div>
+      <p class="hero-scroll-hint">Scroll to explore</p>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <p class="section-label">About</p>
+    <div class="about-grid">
+      <div>
+        <h2 class="section-title">Systems thinker.<br>Builder by trade.</h2>
+        <div class="about-body">
+          <p>
+            I build infrastructure, products, and organizations that operate at the edge of established categories. My work spans <strong>manufacturing operations</strong>, <strong>media production</strong>, <strong>platform engineering</strong>, and <strong>AI-driven data intelligence</strong> — often simultaneously.
+          </p>
+          <p>
+            At Gold Shore Labs, I'm developing a suite of interconnected products: an AI gateway and Proof of Agency layer (Banproof), a sentiment intelligence platform, and tools for human-in-the-loop AI workflows. The common thread is building systems that remain intelligible and auditable as they scale.
+          </p>
+          <p>
+            Before software, I spent years in industrial and manufacturing contexts — Fabco Industries, print and media production — which shapes how I think about reliability, throughput, and the cost of failure in production systems.
+          </p>
+        </div>
+      </div>
+      <div class="about-aside">
+        <div class="aside-block">
+          <div class="aside-block-label">Current focus</div>
+          <div class="aside-block-value">Gold Shore Labs — AI infrastructure, data sentiment, human-in-the-loop platforms</div>
+        </div>
+        <div class="aside-block">
+          <div class="aside-block-label">Approach</div>
+          <div class="aside-block-value">Composable systems. Auditable state. Minimal surface, maximum leverage.</div>
+        </div>
+        <div class="aside-block">
+          <div class="aside-block-label">Background</div>
+          <div class="aside-block-value">Manufacturing · Media · Platform engineering · Operations · Applied AI</div>
+        </div>
+        <div class="aside-block">
+          <div class="aside-block-label">Location</div>
+          <div class="aside-block-value">New York City</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WORK -->
+  <section id="work">
+    <p class="section-label">Selected work</p>
+    <h2 class="section-title">Active ventures &amp;<br>recent projects</h2>
+    <div class="work-grid">
+      <div class="work-card">
+        <p class="work-card-tag">AI Infrastructure · 2024–present</p>
+        <h3 class="work-card-title">Gold Shore Labs</h3>
+        <p class="work-card-desc">
+          Founder-led product studio building AI gateway infrastructure, sentiment intelligence tooling, and human-in-the-loop workflow systems. Platform serves multi-tenant data routing across sports, government, and professional network verticals.
+        </p>
+        <a href="https://goldshore.ai" class="work-card-link" target="_blank" rel="noopener">goldshore.ai &rarr;</a>
+      </div>
+      <div class="work-card">
+        <p class="work-card-tag">AI Gateway · Proof of Agency</p>
+        <h3 class="work-card-title">Banproof</h3>
+        <p class="work-card-desc">
+          AI transparency layer implementing Proof of Agency (PoA) protocols. Provides auditable records of AI decision chains and DePIN infrastructure for verifiable AI action provenance.
+        </p>
+        <a href="https://banproof.me" class="work-card-link" target="_blank" rel="noopener">banproof.me &rarr;</a>
+      </div>
+      <div class="work-card">
+        <p class="work-card-tag">Patented Product · Client work</p>
+        <h3 class="work-card-title">Armsway</h3>
+        <p class="work-card-desc">
+          Patented client product. Selective access — inquire directly for details.
+        </p>
+        <a href="https://armsway.com" class="work-card-link" target="_blank" rel="noopener">armsway.com &rarr;</a>
+      </div>
+      <div class="work-card">
+        <p class="work-card-tag">AI Video · Creative</p>
+        <h3 class="work-card-title">Wayward Traveler</h3>
+        <p class="work-card-desc">
+          AI video production project utilizing Google Veo. Experimental long-form narrative generation at the boundary of documentary and synthetic media.
+        </p>
+      </div>
+      <div class="work-card">
+        <p class="work-card-tag">Operations · Food systems</p>
+        <h3 class="work-card-title">SOLEFOODNY</h3>
+        <p class="work-card-desc">
+          New York food systems project. Operations and platform infrastructure.
+        </p>
+      </div>
+      <div class="work-card" style="background:var(--terracotta-dim); border-left: 2px solid var(--terracotta);">
+        <p class="work-card-tag">Undisclosed</p>
+        <h3 class="work-card-title" style="color:var(--terracotta);">In development</h3>
+        <p class="work-card-desc">
+          Additional ventures in development. Not yet public.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CAREER -->
+  <section id="career">
+    <p class="section-label">Career</p>
+    <h2 class="section-title">Background &amp;<br>experience</h2>
+    <div class="timeline">
+      <div class="timeline-item">
+        <p class="timeline-period">2024 – Present</p>
+        <h3 class="timeline-role">Founder</h3>
+        <p class="timeline-org">Gold Shore Labs</p>
+        <p class="timeline-desc">Building AI infrastructure products, sentiment intelligence platforms, and human-in-the-loop workflow tooling. Full-stack architecture across Cloudflare Workers, D1, R2, and multi-model AI APIs.</p>
+      </div>
+      <div class="timeline-item">
+        <p class="timeline-period">Prior</p>
+        <h3 class="timeline-role">Creative Operations &amp; Production</h3>
+        <p class="timeline-org">AXE Creatives / SFNY</p>
+        <p class="timeline-desc">Creative operations, production management, and platform work across advertising and media contexts in New York.</p>
+      </div>
+      <div class="timeline-item">
+        <p class="timeline-period">Prior</p>
+        <h3 class="timeline-role">Publishing &amp; Media Production</h3>
+        <p class="timeline-org">ICD Publications</p>
+        <p class="timeline-desc">Editorial production, media operations, and publishing infrastructure.</p>
+      </div>
+      <div class="timeline-item">
+        <p class="timeline-period">Prior</p>
+        <h3 class="timeline-role">Operations &amp; Manufacturing</h3>
+        <p class="timeline-org">Fabco Industries</p>
+        <p class="timeline-desc">Industrial operations, production systems, and manufacturing process management. Foundation for systems-level thinking applied to software infrastructure.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <p class="section-label">Contact</p>
+    <h2 class="section-title">Work together.<br>Or just say hello.</h2>
+    <div class="contact-grid">
+      <div>
+        <p class="contact-intro">
+          I take on a small number of engagements. If what you're building has real stakes and unusual constraints, I'm interested in hearing about it.
+        </p>
+      </div>
+      <form class="contact-form" method="POST" action="/api/contact" id="contactForm">
+        <div class="form-row">
+          <div class="form-field">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" required autocomplete="name" />
+          </div>
+          <div class="form-field">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required autocomplete="email" />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-field">
+            <label for="company">Organization</label>
+            <input type="text" id="company" name="company" autocomplete="organization" />
+          </div>
+          <div class="form-field">
+            <label for="subject">Subject</label>
+            <select id="subject" name="subject" required>
+              <option value="" disabled selected>Select one</option>
+              <option value="collaboration">Collaboration</option>
+              <option value="consulting">Consulting</option>
+              <option value="investment">Investment</option>
+              <option value="media">Media / Press</option>
+              <option value="general">General</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-field">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" required></textarea>
+        </div>
+        <button type="submit" class="form-submit">Send message &rarr;</button>
+        <p class="form-notice" id="formNotice" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p class="footer-mark">&copy; 2025 Rob Marston</p>
+    <ul class="footer-links">
+      <li><a href="https://github.com/marzton" target="_blank" rel="noopener">GitHub</a></li>
+      <li><a href="https://goldshore.ai" target="_blank" rel="noopener">Gold Shore Labs</a></li>
+      <li><a href="mailto:rob@rmarston.com">Email</a></li>
+    </ul>
+  </footer>
+
+  <script>
+    // Contact form — progressive enhancement
+    const form = document.getElementById('contactForm');
+    const notice = document.getElementById('formNotice');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = form.querySelector('.form-submit');
+      btn.textContent = 'Sending…';
+      btn.disabled = true;
+      notice.textContent = '';
+
+      try {
+        const res = await fetch('/api/contact', {
+          method: 'POST',
+          body: new FormData(form),
+        });
+        if (res.ok) {
+          notice.textContent = 'Message sent. I\'ll be in touch.';
+          notice.style.color = '#4ade80';
+          form.reset();
+        } else {
+          throw new Error('Server error');
+        }
+      } catch {
+        notice.textContent = 'Something went wrong. Try emailing directly.';
+        notice.style.color = '#f87171';
+      } finally {
+        btn.textContent = 'Send message →';
+        btn.disabled = false;
+      }
+    });
+
+    // Smooth scroll offset for fixed nav
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+      link.addEventListener('click', (e) => {
+        const target = document.querySelector(link.getAttribute('href'));
+        if (!target) return;
+        e.preventDefault();
+        const offset = 80;
+        window.scrollTo({ top: target.offsetTop - offset, behavior: 'smooth' });
+      });
+    });
+  </script>
+
+</body>
 </html>

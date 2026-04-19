@@ -34,14 +34,14 @@
         "url": "https://github.com/marzton/rmarston-github-io.git"
     },
     "dependencies": {
-        "autoprefixer": "10.4.14",
-        "bootstrap": "5.2.3",
-        "postcss": "8.5.8",
-        "prettier": "3.8.1",
-        "pug": "3.0.3",
-        "sass": "1.60.0",
+        "autoprefixer": "10.5.0",
+        "bootstrap": "5.3.8",
+        "postcss": "8.5.10",
+        "prettier": "3.8.3",
+        "pug": "3.0.4",
+        "sass": "1.99.0",
         "shelljs": "0.10.0",
-        "upath": "2.0.1"
+        "upath": "3.0.6"
     },
     "devDependencies": {
         "browser-sync": "3.0.4",

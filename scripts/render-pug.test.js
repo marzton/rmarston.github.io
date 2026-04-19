@@ -2,7 +2,9 @@
 
 // Manual mocks with 'mock' prefix
 const mockFs = {
-    writeFileSync: jest.fn()
+    promises: {
+        writeFile: jest.fn()
+    }
 };
 const mockPug = {
     renderFile: jest.fn()
@@ -42,32 +44,32 @@ describe('renderPug', () => {
         mockSh.test.mockReturnValue(true);
     });
 
-    test('should render pug to html and write to destination', () => {
-        renderPug(filePath);
+    test('should render pug to html and write to destination', async () => {
+        await renderPug(filePath);
 
         expect(mockPug.renderFile).toHaveBeenCalledWith(filePath, expect.objectContaining({
             doctype: 'html',
             filename: filePath
         }));
         expect(mockPrettier.format).toHaveBeenCalledWith('<html></html>', expect.any(Object));
-        expect(mockFs.writeFileSync).toHaveBeenCalledWith(expectedDestPath, '<html>\n</html>');
+        expect(mockFs.promises.writeFile).toHaveBeenCalledWith(expectedDestPath, '<html>\n</html>');
     });
 
-    test('should create destination directory if it does not exist', () => {
+    test('should create destination directory if it does not exist', async () => {
         mockSh.test.mockReturnValue(false);
 
-        renderPug(filePath);
+        await renderPug(filePath);
 
         expect(mockSh.mkdir).toHaveBeenCalledWith('-p', 'dist');
     });
 
-    test('should handle nested pug files correctly', () => {
+    test('should handle nested pug files correctly', async () => {
         const nestedFilePath = 'src/pug/blog/post.pug';
         const expectedNestedDestPath = 'dist/blog/post.html';
 
-        renderPug(nestedFilePath);
+        await renderPug(nestedFilePath);
 
-        expect(mockFs.writeFileSync).toHaveBeenCalledWith(expectedNestedDestPath, expect.any(String));
+        expect(mockFs.promises.writeFile).toHaveBeenCalledWith(expectedNestedDestPath, expect.any(String));
         expect(mockSh.test).toHaveBeenCalledWith('-e', 'dist/blog');
     });
 });

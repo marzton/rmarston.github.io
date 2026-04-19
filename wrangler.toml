@@ -1,21 +1,35 @@
-name = "rmarston-github-io"
+name = "rmarston-com"
 main = "worker/index.ts"
-compatibility_date = "2026-03-22"
+compatibility_date = "2025-03-07"
+compatibility_flags = ["nodejs_compat"]
 
-# Deployment model for this repository:
-# - rmarston.com is served by GitHub Pages as the origin.
-# - Cloudflare provides DNS/proxy/WAF in front of the origin.
-# - This worker is intentionally NOT attached to rmarston.com routes.
-# - If any legacy worker route exists in Cloudflare dashboard, remove it.
-routes = []
+# Serves rmarston.com directly via Worker + static assets
+# Worker handles /api/contact, assets serve dist/
+assets = { directory = "./dist", not_found_handling = "single-page-application", binding = "ASSETS" }
 
 [vars]
-CONTACT_FROM_EMAIL = "contact@rmarston.com"
+ENV = "production"
+PRIMARY_DOMAIN = "rmarston.com"
+CONTACT_FROM_EMAIL = "hello@rmarston.com"
 CONTACT_TO_EMAIL = "marstonr6@gmail.com"
 
-# Cloudflare Email Routing — send_email binding
-# Requires Email Routing to be enabled on the rmarston.com zone and the
-# destination address to be verified in the Cloudflare dashboard.
+# Secrets (set via wrangler secret put):
+#   WEBHOOK_SECRET
+
 [[send_email]]
 name = "SEND_EMAIL"
 destination_address = "marstonr6@gmail.com"
+
+[[d1_databases]]
+binding = "AUDIT_DB"
+database_name = "gs_audit_db"
+database_id = "1ae71d76-188f-481b-91d9-db2d39013f68"
+
+# Routes — attach worker to domain
+[[routes]]
+pattern = "rmarston.com/*"
+zone_name = "rmarston.com"
+
+[[routes]]
+pattern = "www.rmarston.com/*"
+zone_name = "rmarston.com"
