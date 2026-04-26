@@ -57,7 +57,9 @@ export async function verifyAccessJWT(token: string, aud: string): Promise<boole
  */
 export function getEmailFromJWT(token: string): string | null {
   try {
-    const payloadB64 = token.split(".")[1];
+    const parts = token.split(".");
+    if (parts.length < 2) return null;
+    const payloadB64 = parts[1];
     const payload = JSON.parse(atob(payloadB64.replace(/-/g, "+").replace(/_/g, "/")));
     return payload.email ?? null;
   } catch {

@@ -13,7 +13,7 @@
         "start:debug": "npm run build && node scripts/start-debug.js",
         "test": "jest"
     },
-    "description": "Robert Marston's personal career website \u2014 DevOps Engineer & Cloud Architect.",
+    "description": "Robert Marston's personal career website — DevOps Engineer & Cloud Architect.",
     "keywords": [
         "css",
         "sass",
@@ -44,6 +44,8 @@
         "upath": "3.0.6"
     },
     "devDependencies": {
+        "@babel/preset-env": "^7.29.2",
+        "@babel/preset-typescript": "^7.28.5",
         "browser-sync": "3.0.4",
         "chokidar": "5.0.0",
         "concurrently": "9.2.1",
