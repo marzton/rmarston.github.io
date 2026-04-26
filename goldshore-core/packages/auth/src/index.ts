@@ -3,6 +3,19 @@
 
 const CF_CERTS_URL = "https://api.cloudflare.com/client/v4/access/certs";
 
+interface JWTHeader {
+  kid?: string;
+  alg?: string;
+  typ?: string;
+}
+
+interface JWTPayload {
+  exp?: number;
+  aud?: string | string[];
+  email?: string;
+  [key: string]: unknown;
+}
+
 /**
  * Validates a Cloudflare Access JWT assertion.
  * @param token  The value of the `Cf-Access-Jwt-Assertion` header.
@@ -14,23 +27,34 @@ export async function verifyAccessJWT(token: string, aud: string): Promise<boole
     const [headerB64, payloadB64, signatureB64] = token.split(".");
     if (!headerB64 || !payloadB64 || !signatureB64) return false;
 
-    const payload = JSON.parse(atob(payloadB64.replace(/-/g, "+").replace(/_/g, "/")));
+    const payload = JSON.parse(atob(payloadB64.replace(/-/g, "+").replace(/_/g, "/"))) as JWTPayload;
 
     // Check expiry
     if (!payload.exp || payload.exp < Math.floor(Date.now() / 1000)) return false;
 
     // Check audience
+    if (!payload.aud) return false;
     const audiences: string[] = Array.isArray(payload.aud) ? payload.aud : [payload.aud];
     if (!audiences.includes(aud)) return false;
 
     // Fetch CF public keys and verify signature
-    const certsResponse = await fetch(CF_CERTS_URL);
-    if (!certsResponse.ok) return false;
+    let keys = cachedKeys;
+    const now = Date.now();
 
-    const { keys } = await certsResponse.json<{ keys: JsonWebKey[] }>();
+    if (!keys || now - cacheTimestamp > CACHE_TTL) {
+      const certsResponse = await fetch(CF_CERTS_URL);
+      if (certsResponse.ok) {
+        const data = await certsResponse.json<{ keys: JsonWebKey[] }>();
+        keys = data.keys;
+        cachedKeys = keys;
+        cacheTimestamp = now;
+      }
+    }
 
-    const header = JSON.parse(atob(headerB64.replace(/-/g, "+").replace(/_/g, "/")));
-    const jwk = keys.find((k: any) => k.kid === header.kid);
+    if (!keys) return false;
+
+    const header = JSON.parse(atob(headerB64.replace(/-/g, "+").replace(/_/g, "/"))) as JWTHeader;
+    const jwk = keys.find((k) => k.kid === header.kid);
     if (!jwk) return false;
 
     const cryptoKey = await crypto.subtle.importKey(
@@ -59,8 +83,8 @@ export function getEmailFromJWT(token: string): string | null {
   try {
     const parts = token.split(".");
     if (parts.length < 2) return null;
-    const payloadB64 = parts[1];
-    const payload = JSON.parse(atob(payloadB64.replace(/-/g, "+").replace(/_/g, "/")));
+    const payloadB64 = parts[1]!;
+    const payload = JSON.parse(atob(payloadB64.replace(/-/g, "+").replace(/_/g, "/"))) as JWTPayload;
     return payload.email ?? null;
   } catch {
     return null;

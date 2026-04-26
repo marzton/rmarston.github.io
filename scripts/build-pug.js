@@ -8,6 +8,7 @@ const srcPath = upath.resolve(upath.dirname(__filename), '../src');
 async function main() {
     const files = sh.find(srcPath);
 
+    const promises = [];
     for (const filePath of files) {
         if (
             filePath.match(/\.pug$/)
@@ -15,9 +16,10 @@ async function main() {
             && !filePath.match(/mixin/)
             && !filePath.match(/\/pug\/layouts\//)
         ) {
-            await renderPug(filePath);
+            promises.push(renderPug(filePath));
         }
     }
+    await Promise.all(promises);
 }
 
 main().catch((error) => {

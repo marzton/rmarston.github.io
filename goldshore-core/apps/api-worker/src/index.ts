@@ -39,7 +39,7 @@ app.use("/admin/*", async (c, next) => {
 });
 
 // ---------------------------------------------------------------------------
-// Example: create a user
+// Example: create a user (protected by CF Access via /admin namespace)
 // ---------------------------------------------------------------------------
 app.post("/admin/users", async (c) => {
   const { email, name } = await c.req.json<{ email: string; name: string }>();
