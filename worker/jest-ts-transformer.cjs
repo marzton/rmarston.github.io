@@ -3,13 +3,33 @@
 const { transformSync } = require('@babel/core');
 
 function toCommonJs(sourceText) {
-  const withoutNamedExports = sourceText.replace(/^export function\s+/gm, 'function ');
-  const withDefaultConst = withoutNamedExports.replace(
+  let transformed = sourceText;
+
+  // Replace imports with requires
+  transformed = transformed.replace(
+    /^import\s+\{\s*([^}]+)\s*\}\s+from\s+['"]([^'"]+)['"];?/gm,
+    (match, imports, path) => {
+      return `const { ${imports} } = require('${path}');`;
+    }
+  );
+
+  transformed = transformed.replace(/^export function\s+/gm, 'function ');
+  transformed = transformed.replace(
     /^export default\s+/m,
     'const __default_export__ = ',
   );
 
-  return `${withDefaultConst}\nmodule.exports = { default: __default_export__, getRedirectStatus, buildUpstreamUrl };\n`;
+  // Find all function names that are defined (potentially exported)
+  const exportedFunctions = [];
+  const functionRegex = /^function\s+([a-zA-Z0-9_]+)/gm;
+  let match;
+  while ((match = functionRegex.exec(transformed)) !== null) {
+    exportedFunctions.push(match[1]);
+  }
+
+  const exportsObj = exportedFunctions.length > 0 ? `{ ${exportedFunctions.join(', ')} }` : '{}';
+
+  return `${transformed}\nmodule.exports = ${exportsObj};\n`;
 }
 
 module.exports = {
@@ -20,7 +40,7 @@ module.exports = {
       configFile: false,
       sourceMaps: 'inline',
       plugins: [
-        '@babel/plugin-syntax-typescript',
+        ['@babel/plugin-syntax-typescript', { isTS: true }],
         function stripTypesPlugin() {
           return {
             visitor: {
