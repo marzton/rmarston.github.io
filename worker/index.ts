@@ -44,8 +44,9 @@ function buildMimeMessage(
  * via the Cloudflare Email Routing send_email binding.
  */
 async function handleContactForm(request: Request, env: Env): Promise<Response> {
+  const allowedOrigin = "https://rmarston.com";
   const corsHeaders = {
-    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Origin": allowedOrigin,
     "Access-Control-Allow-Methods": "POST, OPTIONS",
     "Access-Control-Allow-Headers": "Content-Type",
   };
