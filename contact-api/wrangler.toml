@@ -1,0 +1,14 @@
+name = "rmarston-contact"
+main = "index.ts"
+compatibility_date = "2025-03-07"
+
+[vars]
+CONTACT_FROM_EMAIL = "contact@rmarston.com"
+CONTACT_TO_EMAIL = "marstonr6@gmail.com"
+
+# Secrets (set via wrangler secret put):
+#   RESEND_API_KEY
+
+[[routes]]
+pattern = "api.rmarston.com/contact"
+custom_domain = true
