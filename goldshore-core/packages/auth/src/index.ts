@@ -33,14 +33,25 @@ export async function verifyAccessJWT(token: string, aud: string): Promise<boole
     if (!payload.exp || payload.exp < Math.floor(Date.now() / 1000)) return false;
 
     // Check audience
+    if (!payload.aud) return false;
     const audiences: string[] = Array.isArray(payload.aud) ? payload.aud : [payload.aud];
     if (!audiences.includes(aud)) return false;
 
     // Fetch CF public keys and verify signature
-    const certsResponse = await fetch(CF_CERTS_URL);
-    if (!certsResponse.ok) return false;
+    let keys = cachedKeys;
+    const now = Date.now();
 
-    const { keys } = await certsResponse.json<{ keys: JsonWebKey[] }>();
+    if (!keys || now - cacheTimestamp > CACHE_TTL) {
+      const certsResponse = await fetch(CF_CERTS_URL);
+      if (certsResponse.ok) {
+        const data = await certsResponse.json<{ keys: JsonWebKey[] }>();
+        keys = data.keys;
+        cachedKeys = keys;
+        cacheTimestamp = now;
+      }
+    }
+
+    if (!keys) return false;
 
     const header = JSON.parse(atob(headerB64.replace(/-/g, "+").replace(/_/g, "/"))) as JWTHeader;
     const jwk = keys.find((k) => k.kid === header.kid);
