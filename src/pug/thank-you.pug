@@ -1,0 +1,43 @@
+doctype html
+html(lang='en')
+
+    head
+
+        meta(charset='utf-8')
+        meta(name='viewport', content='width=device-width, initial-scale=1, shrink-to-fit=no')
+        meta(name='description', content='')
+        meta(name='author', content='')
+
+        title Thank You - Robert Marston
+
+        link(rel='icon', type='image/x-icon', href='assets/favicon.ico')
+
+        include includes/css.pug
+
+    body
+
+        include includes/navbar.pug
+
+        // Page Header
+        header.masthead(style="background-image: url('assets/img/contact-bg.jpg')")
+            .container.position-relative.px-4.px-lg-5
+                .row.gx-4.gx-lg-5.justify-content-center
+                    .col-md-10.col-lg-8.col-xl-7
+                        .page-heading
+                            h1 Message Sent
+                            span.subheading I'll get back to you shortly.
+
+        // Main Content
+        main.mb-4
+            .container.px-4.px-lg-5
+                .row.gx-4.gx-lg-5.justify-content-center
+                    .col-md-10.col-lg-8.col-xl-7
+                        .text-center
+                            p
+                                | Thank you for reaching out! Your message has been successfully sent. I usually respond within 24-48 hours.
+                            br
+                            a.btn.btn-primary.text-uppercase(href='index.html') Back to Home
+
+        include includes/footer.pug
+
+        include includes/scripts.pug
