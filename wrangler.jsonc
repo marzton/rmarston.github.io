@@ -36,7 +36,6 @@
     }
   ],
   "routes": [
-    { "pattern": "rmarston.com/*", "zone_name": "rmarston.com" },
-    { "pattern": "www.rmarston.com/*", "zone_name": "rmarston.com" }
+    { "pattern": "api.rmarston.com/*", "zone_name": "rmarston.com" }
   ]
 }
