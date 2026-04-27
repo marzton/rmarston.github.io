@@ -3,6 +3,19 @@
 
 const CF_CERTS_URL = "https://api.cloudflare.com/client/v4/access/certs";
 
+interface JWTHeader {
+  kid?: string;
+  alg?: string;
+  typ?: string;
+}
+
+interface JWTPayload {
+  exp?: number;
+  aud?: string | string[];
+  email?: string;
+  [key: string]: unknown;
+}
+
 /**
  * Validates a Cloudflare Access JWT assertion.
  * @param token  The value of the `Cf-Access-Jwt-Assertion` header.
@@ -24,10 +37,20 @@ export async function verifyAccessJWT(token: string, aud: string): Promise<boole
     if (!audiences.includes(aud)) return false;
 
     // Fetch CF public keys and verify signature
-    const certsResponse = await fetch(CF_CERTS_URL);
-    if (!certsResponse.ok) return false;
+    let keys = cachedKeys;
+    const now = Date.now();
 
-    const { keys } = await certsResponse.json<{ keys: JsonWebKey[] }>();
+    if (!keys || now - cacheTimestamp > CACHE_TTL) {
+      const certsResponse = await fetch(CF_CERTS_URL);
+      if (certsResponse.ok) {
+        const data = await certsResponse.json<{ keys: JsonWebKey[] }>();
+        keys = data.keys;
+        cachedKeys = keys;
+        cacheTimestamp = now;
+      }
+    }
+
+    if (!keys) return false;
 
     const header = JSON.parse(atob(headerB64.replace(/-/g, "+").replace(/_/g, "/")));
     const jwk = keys.find((k: any) => k.kid === header.kid);
