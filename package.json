@@ -3,7 +3,8 @@
     "name": "rmarston-github-io",
     "version": "1.0.0",
     "scripts": {
-        "build": "npm run clean && npm run build:pug && npm run build:scss && npm run build:scripts && npm run build:assets",
+        "build": "node scripts/build.js",
+        "build:legacy": "npm run clean && npm run build:pug && npm run build:scss && npm run build:scripts && npm run build:assets",
         "build:assets": "node scripts/build-assets.js",
         "build:pug": "node scripts/build-pug.js",
         "build:scripts": "node scripts/build-scripts.js",
@@ -13,7 +14,7 @@
         "start:debug": "npm run build && node scripts/start-debug.js",
         "test": "jest"
     },
-    "description": "Robert Marston's personal career website — DevOps Engineer & Cloud Architect.",
+    "description": "Robert Marston's personal career website \u2014 DevOps Engineer & Cloud Architect.",
     "keywords": [
         "css",
         "sass",
@@ -41,11 +42,9 @@
         "pug": "3.0.4",
         "sass": "1.99.0",
         "shelljs": "0.10.0",
-        "upath": "3.0.7"
+        "upath": "3.0.6"
     },
     "devDependencies": {
-        "@babel/preset-env": "^7.29.2",
-        "@babel/preset-typescript": "^7.28.5",
         "browser-sync": "3.0.4",
         "chokidar": "5.0.0",
         "concurrently": "9.2.1",

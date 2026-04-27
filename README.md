@@ -12,7 +12,8 @@
 ## Purpose
 Personal portfolio — Rob Marston, founder of Gold Shore Labs.
 Intentionally independent of Gold Shore Labs infrastructure.
-No D1, no queues, no workers — pure static.
+No D1, no queues — Cloudflare Worker handles contact form API.
 
 ## Contact
-Email routing via CF Email Routing → marstonr6@gmail.com
+Contact form → Cloudflare Worker → Resend API → rob@rmarston.com
+Verified From Address: mail@rmarston.com

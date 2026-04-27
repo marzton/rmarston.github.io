@@ -1,5 +1,7 @@
 'use strict';
 
+const worker = require('./index');
+
 if (typeof URL === 'undefined') {
   global.URL = require('url').URL;
 }
@@ -14,7 +16,7 @@ global.Headers = class {
         Object.entries(init).forEach(([k, v]) => this.map.set(k.toLowerCase(), v));
       }
 const workerLogic = {
-  fetch: async (request, env) => {
+  fetch: async (request) => {
     const requestUrl = new URL(request.url);
 
     if (
@@ -66,7 +68,7 @@ global.Request = class {
   },
 };
 
-describe('Cloudflare Worker API + asset routing', () => {
+describe('Cloudflare Worker API-only routing', () => {
   beforeEach(() => {
     global.Headers = class {
       constructor(init) {
@@ -123,7 +125,6 @@ describe('Cloudflare Worker API + asset routing', () => {
         send: jest.fn().mockResolvedValue(undefined)
       }
       async text() { return this.body; }
-      async json() { return JSON.parse(this.body); }
     };
 
     const response = await worker.fetch(request, env);
@@ -162,7 +163,6 @@ describe('Cloudflare Worker API + asset routing', () => {
     const response = await worker.fetch(request, env);
 
     expect(response.status).toBe(200);
-    expect(await response.text()).toContain('portfolio');
   });
 
   test('returns 404 JSON for unknown API routes', async () => {
@@ -176,17 +176,22 @@ describe('Cloudflare Worker API + asset routing', () => {
       },
     };
 
-    const response = await workerLogic.fetch(request, env);
-
-    expect(response.status).toBe(200);
-    expect(await response.text()).toContain('portfolio');
+    expect(response.status).toBe(422);
+    expect(await response.json()).toEqual({ error: 'Invalid email address.' });
   });
 
-  test('returns 404 JSON for unknown API routes', async () => {
-    const request = new Request('https://rmarston.com/api/missing');
+  test('handles OPTIONS /api/contact', async () => {
+    const request = new Request('https://rmarston.com/api/contact', { method: 'OPTIONS' });
+    const response = await workerLogic.fetch(request, {});
+
+    expect(response.status).toBe(200);
+  });
+
+  test('returns 404 for non-API routes', async () => {
+    const request = new Request('https://rmarston.com/');
     const response = await workerLogic.fetch(request, {});
 
     expect(response.status).toBe(404);
-    expect(await response.json()).toEqual({ error: 'API route not found.' });
+    expect(await response.text()).toBe('Not found.');
   });
 });
