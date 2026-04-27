@@ -8,12 +8,10 @@ export interface Env {
  * Handle POST /api/contact — parse form data and send an email
  * via the Resend API.
  */
-async function handleContactForm(
-  request: Request,
-  env: Env,
-): Promise<Response> {
+async function handleContactForm(request: Request, env: Env): Promise<Response> {
+  const allowedOrigin = "https://rmarston.com";
   const corsHeaders = {
-    "Access-Control-Allow-Origin":  "*",
+    "Access-Control-Allow-Origin": allowedOrigin,
     "Access-Control-Allow-Methods": "POST, OPTIONS",
     "Access-Control-Allow-Headers": "Content-Type",
   };
