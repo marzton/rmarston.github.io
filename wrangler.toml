@@ -25,11 +25,15 @@ binding = "AUDIT_DB"
 database_name = "gs_audit_db"
 database_id = "1ae71d76-188f-481b-91d9-db2d39013f68"
 
-# Routes — attach worker to domain
+# Routes — attach worker to required subdomains
 [[routes]]
-pattern = "rmarston.com/*"
+pattern = "api.rmarston.com/*"
 zone_name = "rmarston.com"
 
 [[routes]]
-pattern = "www.rmarston.com/*"
+pattern = "admin.rmarston.com/*"
+zone_name = "rmarston.com"
+
+[[routes]]
+pattern = "preview.rmarston.com/*"
 zone_name = "rmarston.com"

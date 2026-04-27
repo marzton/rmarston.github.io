@@ -1,5 +1,7 @@
 'use strict';
 
+const worker = require('./index');
+
 if (typeof URL === 'undefined') {
   global.URL = require('url').URL;
 }
@@ -13,15 +15,6 @@ global.Headers = class {
       } else {
         Object.entries(init).forEach(([k, v]) => this.map.set(k.toLowerCase(), v));
       }
-const workerLogic = {
-  fetch: async (request, env) => {
-    const requestUrl = new URL(request.url);
-
-    if (
-      requestUrl.pathname === '/api/contact' &&
-      (request.method === 'POST' || request.method === 'OPTIONS')
-    ) {
-      return new Response('contact endpoint', { status: 200 });
     }
   }
   set(k, v) { this.map.set(k.toLowerCase(), v); }
@@ -51,33 +44,6 @@ global.Request = class {
     throw new Error('Not form data');
   }
 };
-    if (requestUrl.pathname.startsWith('/api/')) {
-      return new Response(JSON.stringify({ error: 'API route not found.' }), {
-        status: 404,
-        headers: { 'Content-Type': 'application/json' },
-      });
-    }
-
-    if (request.method === 'GET' || request.method === 'HEAD') {
-      return env.ASSETS.fetch(request);
-    }
-
-    return new Response('Method not allowed.', { status: 405 });
-  },
-};
-
-describe('Cloudflare Worker API + asset routing', () => {
-  beforeEach(() => {
-    global.Headers = class {
-      constructor(init) {
-        this.map = new Map();
-        if (init) {
-          Object.entries(init).forEach(([k, v]) => this.map.set(k.toLowerCase(), v));
-        }
-      }
-      set(k, v) { this.map.set(k.toLowerCase(), v); }
-      get(k) { return this.map.get(k.toLowerCase()); }
-    };
 
 global.Response = class {
   constructor(body, options = {}) {
@@ -101,8 +67,6 @@ global.ReadableStream = class {
   }
 };
 
-const worker = require('./index.ts');
-
 describe('Cloudflare Worker API + asset routing', () => {
   test('handles POST /api/contact with valid data', async () => {
     const formData = new FormData();
@@ -122,14 +86,14 @@ describe('Cloudflare Worker API + asset routing', () => {
       SEND_EMAIL: {
         send: jest.fn().mockResolvedValue(undefined)
       }
-      async text() { return this.body; }
-      async json() { return JSON.parse(this.body); }
     };
 
-    const response = await worker.fetch(request, env);
+    const response = await worker.default.fetch(request, env);
 
     expect(response.status).toBe(200);
-    expect(await response.json()).toEqual({ success: true });
+    expect(response.headers.get('Content-Type')).toBe('application/json');
+    const json = await response.json();
+    expect(json).toEqual({ success: true });
     expect(env.SEND_EMAIL.send).toHaveBeenCalled();
   });
 
@@ -145,7 +109,7 @@ describe('Cloudflare Worker API + asset routing', () => {
       body: formData
     });
 
-    const response = await worker.fetch(request, {});
+    const response = await worker.default.fetch(request, {});
 
     expect(response.status).toBe(422);
     expect(await response.json()).toEqual({ error: 'Invalid email address.' });
@@ -159,7 +123,7 @@ describe('Cloudflare Worker API + asset routing', () => {
       },
     };
 
-    const response = await worker.fetch(request, env);
+    const response = await worker.default.fetch(request, env);
 
     expect(response.status).toBe(200);
     expect(await response.text()).toContain('portfolio');
@@ -167,24 +131,7 @@ describe('Cloudflare Worker API + asset routing', () => {
 
   test('returns 404 JSON for unknown API routes', async () => {
     const request = new Request('https://rmarston.com/api/missing');
-    const response = await worker.fetch(request, {});
-  test('falls through to static assets for website pages', async () => {
-    const request = new Request('https://rmarston.com/');
-    const env = {
-      ASSETS: {
-        fetch: async () => new Response('<html>portfolio</html>', { status: 200 }),
-      },
-    };
-
-    const response = await workerLogic.fetch(request, env);
-
-    expect(response.status).toBe(200);
-    expect(await response.text()).toContain('portfolio');
-  });
-
-  test('returns 404 JSON for unknown API routes', async () => {
-    const request = new Request('https://rmarston.com/api/missing');
-    const response = await workerLogic.fetch(request, {});
+    const response = await worker.default.fetch(request, {});
 
     expect(response.status).toBe(404);
     expect(await response.json()).toEqual({ error: 'API route not found.' });
