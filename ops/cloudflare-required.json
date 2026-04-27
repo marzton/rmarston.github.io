@@ -1,5 +1,6 @@
 {
   "zone_name": "rmarston.com",
+  "enforce_requirements": false,
   "required_dns": [
     "api.rmarston.com",
     "admin.rmarston.com",

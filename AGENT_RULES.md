@@ -8,7 +8,7 @@ This document acts as the definitive source of truth, boundaries, and guardrails
 - **Edge Routing & Security:** Served to `rmarston.com` via Cloudflare proxy.
   - **Bot Defense:** Cloudflare WAF and native AI Bot Blocking are active at edge routing.
   - **Email Routing:** Handled serverless via Cloudflare (e.g., `hello@rmarston.com` forwarding to actual inbox).
-- **Secrets Management:** `GH_PERSONAL_ACCESS_TOKEN` and other operational secrets are stored STRICTLY inside Cloudflare SECRETS and GitHub Settings. **Never write secrets to local `.env` files.**
+- **Secrets Management:** `GH_PERSONAL_ACCESS_TOKEN`, `RESEND_API_KEY`, and other operational secrets are stored STRICTLY inside Cloudflare SECRETS and GitHub Settings. **Never write secrets to local `.env` files.**
 
 ## 2. Code Rules & Aesthetics
 - **Frontend Frameworks:** NONE. No TailwindCSS, no Bootstrap components, no massive dependencies.

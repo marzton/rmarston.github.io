@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>R. Marston — Registry</title>
+  <meta name="description" content="Personal identity registry for R. Marston. Executive portfolio, Armsway, and Solefood NY." />
+  <meta name="author" content="Rob Marston" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://rmarston.com" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://rmarston.com" />
+  <meta property="og:title" content="R. Marston — Registry" />
+  <meta property="og:description" content="Personal identity registry for R. Marston." />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@800&family=IBM+Plex+Mono:wght@400;700&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --void:  #080a0d;
+      --green: #00e5a0;
+      --steel: #4a6075;
+      --white: #e8eaed;
+    }
+
+    html, body {
+      background: var(--void);
+      color: var(--white);
+      min-height: 100vh;
+      font-family: 'IBM Plex Mono', monospace;
+    }
+
+    /* ── Layout ── */
+    .page {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 4rem 2rem 6rem;
+    }
+
+    /* ── Header ── */
+    header {
+      border-bottom: 1px solid var(--steel);
+      padding-bottom: 2rem;
+      margin-bottom: 3rem;
+    }
+
+    .registry-label {
+      font-size: 0.75rem;
+      letter-spacing: 0.25em;
+      color: var(--steel);
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+    }
+
+    h1 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: clamp(2.5rem, 8vw, 5rem);
+      line-height: 1;
+      color: var(--white);
+      letter-spacing: -0.02em;
+    }
+
+    h1 span {
+      color: var(--green);
+    }
+
+    .cursor {
+      display: inline-block;
+      width: 0.6ch;
+      height: 1em;
+      background: var(--green);
+      margin-left: 0.1em;
+      vertical-align: text-bottom;
+      animation: blink 1.1s step-end infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0; }
+    }
+
+    /* ── Directory table ── */
+    .dir-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.9rem;
+    }
+
+    .dir-table thead tr {
+      border-bottom: 1px solid var(--steel);
+    }
+
+    .dir-table th {
+      text-align: left;
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--steel);
+      padding: 0 0 0.75rem;
+    }
+
+    .dir-table th:last-child { text-align: right; }
+
+    .dir-table tbody tr {
+      border-bottom: 1px solid #1a1f27;
+      transition: background 0.15s;
+    }
+
+    .dir-table tbody tr:hover {
+      background: #0e1117;
+    }
+
+    .dir-table td {
+      padding: 1.1rem 0;
+      vertical-align: top;
+    }
+
+    .dir-table td:last-child {
+      text-align: right;
+      color: var(--steel);
+      font-size: 0.75rem;
+      white-space: nowrap;
+    }
+
+    .entry-path {
+      color: var(--green);
+      font-weight: 700;
+      font-size: 1rem;
+    }
+
+    .entry-path a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .entry-path a:hover {
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .entry-desc {
+      color: var(--steel);
+      font-size: 0.8rem;
+      margin-top: 0.3rem;
+    }
+
+    /* ── Footer ── */
+    footer {
+      margin-top: 4rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--steel);
+      font-size: 0.72rem;
+      color: var(--steel);
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <p class="registry-label">// personal registry</p>
+      <h1>R.<span>MARSTON</span><span class="cursor" aria-hidden="true"></span></h1>
+    </header>
+
+    <main>
+      <table class="dir-table" aria-label="Site directory">
+        <thead>
+          <tr>
+            <th>path</th>
+            <th>status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <div class="entry-path"><a href="https://rmarston.com" target="_blank" rel="noopener noreferrer">~/executive-hub</a></div>
+              <div class="entry-desc">Portfolio &amp; executive identity — rmarston.com</div>
+            </td>
+            <td>live</td>
+          </tr>
+          <tr>
+            <td>
+              <div class="entry-path"><a href="./armsway/">~/armsway</a></div>
+              <div class="entry-desc">Patented Disposable Blood Pressure Sleeves — medical engineering</div>
+            </td>
+            <td>staging</td>
+          </tr>
+          <tr>
+            <td>
+              <div class="entry-path"><a href="./solefoodny/">~/solefoodny</a></div>
+              <div class="entry-desc">#SFNY — sneaker boutique brand identity</div>
+            </td>
+            <td>staging</td>
+          </tr>
+        </tbody>
+      </table>
+    </main>
+
+    <footer>
+      <span>rmarston.com</span>
+      <span>R. Marston &mdash; All rights reserved</span>
+    </footer>
+  </div>
+</body>
+</html>

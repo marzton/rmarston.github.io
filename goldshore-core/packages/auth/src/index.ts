@@ -37,7 +37,6 @@ export async function verifyAccessJWT(token: string, aud: string): Promise<boole
     if (!payload.exp || payload.exp < Math.floor(Date.now() / 1000)) return false;
 
     // Check audience
-    if (!payload.aud) return false;
     const audiences: string[] = Array.isArray(payload.aud) ? payload.aud : [payload.aud];
     if (!audiences.includes(aud)) return false;
 
