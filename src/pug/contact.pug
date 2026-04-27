@@ -8,7 +8,7 @@ html(lang='en')
         meta(name='description', content='')
         meta(name='author', content='')
 
-        title Contact - Robert Marston
+        title Clean Blog - Start Bootstrap Theme
 
         link(rel='icon', type='image/x-icon', href='assets/favicon.ico')
 
@@ -37,108 +37,87 @@ html(lang='en')
 
                         .my-5
 
-                            form#contactForm
+                            // * * * * * * * * * * * * * * *
+                            // * * SB Forms Contact Form * *
+                            // * * * * * * * * * * * * * * *
+
+                            // This form is pre-integrated with SB Forms.
+                            // To make this form functional, sign up at
+                            // https://startbootstrap.com/solution/contact-forms
+                            // to get an API token!
+
+                            form#contactForm(data-sb-form-api-token='API_TOKEN')
                                 .form-floating
                                     input#name.form-control(
-                                        name='name',
                                         type='text',
                                         placeholder='Enter your name...',
-                                        required
+                                        data-sb-validations='required'
                                     )
                                     label(for='name') Name
+                                    .invalid-feedback(data-sb-feedback='name:required')
+                                        | A name is required.
                                 .form-floating
                                     input#email.form-control(
-                                        name='email',
                                         type='email',
                                         placeholder='Enter your email...',
-                                        required
+                                        data-sb-validations='required,email'
                                     )
                                     label(for='email') Email address
+                                    .invalid-feedback(data-sb-feedback='email:required')
+                                        | An email is required.
+                                    .invalid-feedback(data-sb-feedback='email:email')
+                                        | Email is not valid.
                                 .form-floating
-                                    input#company.form-control(
-                                        name='company',
-                                        type='text',
-                                        placeholder='Enter your company...'
+                                    input#phone.form-control(
+                                        type='tel',
+                                        placeholder='Enter your phone number...',
+                                        data-sb-validations='required'
                                     )
-                                    label(for='company') Company
-                                .form-floating
-                                    select#type.form-control(name='type')
-                                        option(value='General Inquiry') General Inquiry
-                                        option(value='Project Request') Project Request
-                                        option(value='Job Opportunity') Job Opportunity
-                                        option(value='Other') Other
-                                    label(for='type') Inquiry Type
+                                    label(for='phone') Phone Number
+                                    .invalid-feedback(data-sb-feedback='phone:required')
+                                        | A phone number is required.
                                 .form-floating
                                     textarea#message.form-control(
-                                        name='message',
                                         placeholder='Enter your message here...',
                                         style='height: 12rem;',
-                                        required
+                                        data-sb-validations='required'
                                     )
                                     label(for='message') Message
-
-                                // Honeypot field
-                                input#website(type='text', name='website', style='display:none', tabindex='-1', autocomplete='off')
+                                    .invalid-feedback(data-sb-feedback='message:required')
+                                        | A message is required.
 
                                 br
 
                                 // Submit success message
+                                //
+                                // This is what your users will see when the form
+                                // has successfully submitted
+
                                 #submitSuccessMessage.d-none
                                     .text-center.mb-3
                                         .fw-bolder Form submission successful!
+                                        | To activate this form, sign up at
+                                        br
+                                        a(href='https://startbootstrap.com/solution/contact-forms') https://startbootstrap.com/solution/contact-forms
 
                                 // Submit error message
+                                //
+                                // This is what your users will see when there is
+                                // an error submitting the form
+
                                 #submitErrorMessage.d-none
                                     .text-center.text-danger.mb-3 Error sending message!
 
                                 // Submit Button
-                                button#submitButton.btn.btn-primary.text-uppercase(type='submit') Send
+                                button#submitButton.btn.btn-primary.text-uppercase.disabled(type='submit') Send
 
         include includes/footer.pug
 
         include includes/scripts.pug
 
-        script.
-            const form = document.getElementById('contactForm');
-            const submitButton = document.getElementById('submitButton');
-            const successMessage = document.getElementById('submitSuccessMessage');
-            const errorMessage = document.getElementById('submitErrorMessage');
+        // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+        // * *                               SB Forms JS                               * *
+        // * * Activate your form at https://startbootstrap.com/solution/contact-forms * *
+        // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-            form?.addEventListener('submit', async (e) => {
-                e.preventDefault();
-
-                // Disable button to prevent double submission
-                submitButton.disabled = true;
-                errorMessage.classList.add('d-none');
-
-                const formData = new FormData(form);
-                const payload = {
-                    name: formData.get('name'),
-                    email: formData.get('email'),
-                    company: formData.get('company'),
-                    type: formData.get('type'),
-                    message: formData.get('message'),
-                    website: formData.get('website')
-                };
-
-                try {
-                    const res = await fetch('https://api.rmarston.com/contact', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(payload)
-                    });
-
-                    const data = await res.json();
-
-                    if (res.ok && data.ok) {
-                        window.location.href = '/thank-you.html';
-                        return;
-                    }
-
-                    throw new Error(data.error || 'Failed to send');
-                } catch (err) {
-                    console.error(err);
-                    errorMessage.classList.remove('d-none');
-                    submitButton.disabled = false;
-                }
-            });
+        script(src='https://cdn.startbootstrap.com/sb-forms-latest.js')
