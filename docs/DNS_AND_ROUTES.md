@@ -92,7 +92,7 @@
 # DMARC policy:
 # Type: TXT
 # Name: _dmarc
-# Value: v=DMARC1; p=quarantine; rua=mailto:marstonr6@gmail.com; adkim=r; aspf=r;
+# Value: v=DMARC1; p=quarantine; rua=mailto:<reporting-address>; adkim=r; aspf=r;
 
 # ══════════════════════════════════════════════════════════════
 # ZONE: banproof.me
