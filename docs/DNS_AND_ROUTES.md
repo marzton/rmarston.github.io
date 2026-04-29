@@ -74,6 +74,26 @@
 # Type: CNAME, Proxied: YES
 # Name: www  →  rmarston.com
 
+## SendGrid domain authentication (transactional email)
+# NOTE: These DNS records should be DNS-only (not proxied) in Cloudflare.
+#
+# Return-Path / link branding:
+# Type: CNAME, Proxied: NO
+# Name: em6354  →  u106406774.wl025.sendgrid.net
+#
+# DKIM key 1:
+# Type: CNAME, Proxied: NO
+# Name: s1._domainkey  →  s1.domainkey.u106406774.wl025.sendgrid.net
+#
+# DKIM key 2:
+# Type: CNAME, Proxied: NO
+# Name: s2._domainkey  →  s2.domainkey.u106406774.wl025.sendgrid.net
+#
+# DMARC policy:
+# Type: TXT
+# Name: _dmarc
+# Value: v=DMARC1; p=quarantine; rua=mailto:marstonr6@gmail.com; adkim=r; aspf=r;
+
 # ══════════════════════════════════════════════════════════════
 # ZONE: banproof.me
 # ══════════════════════════════════════════════════════════════
