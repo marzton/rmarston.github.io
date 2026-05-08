@@ -784,7 +784,7 @@
           I take on a small number of engagements. If what you're building has real stakes and unusual constraints, I'm interested in hearing about it.
         </p>
       </div>
-      <form class="contact-form" method="POST" action="/api/contact" id="contactForm">
+      <form class="contact-form" method="POST" action="https://api.rmarston.com/api/contact" id="contactForm">
         <div class="form-row">
           <div class="form-field">
             <label for="name">Name</label>
@@ -845,7 +845,7 @@
       notice.textContent = '';
 
       try {
-        const res = await fetch('/api/contact', {
+        const res = await fetch('https://api.rmarston.com/api/contact', {
           method: 'POST',
           body: new FormData(form),
         });
